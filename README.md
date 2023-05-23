@@ -1,8 +1,8 @@
 # Enterprise Infrastructure Setup on Vagrant 
 This project replicates IRC Enterprise Infrastructure Setup on AWS, and hosts it using Vagrant instead of AWS. There is currently only 1 SIEM available, and it is Splunk. (The other 2 will be added soon).
 
-Vagrant Documentation:
-1. [Recommended Reading](https://developer.hashicorp.com/vagrant/docs)
+Recommended Reading:
+1. [Vagrant Documentation](https://developer.hashicorp.com/vagrant/docs)
 
 # Network Diagram
 <img title="Network Diagram" alt="Alt text" src="/Images/network_diagram.png">
@@ -23,7 +23,7 @@ git clone https://github.com/rouvinerh/IRC-Enterprise-Setup-Vagrant
 cd IRC-Enterprise-Setup-Vagrant
 vagrant up
 ```
-For the first time, it takes around 30 minutes to install all VMs and run. Subsequent runs will take around 15 minutes.
+For the first time, it takes around 30 minutes to install all VMs and run. Subsequent runs will take around 15 minutes depending on how good your computer is.
 
 ## Tear Down
 Stop all the VMs and run `destroy` to delete the machines.
