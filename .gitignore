@@ -6,3 +6,6 @@ crash.*.log
 *.cer
 *.pem
 *.ppk
+
+# Ignore Vagrant Log Files
+*.vagrant

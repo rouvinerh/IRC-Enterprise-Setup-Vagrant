@@ -37,7 +37,7 @@ EOM
 # Start Splunk Forwarder
 /opt/splunkforwarder/bin/splunk start -auth admin:password123
 
-## create startup script
+# create startup script
 echo '#!/bin/sh' > /opt/startup.sh
 echo 'ip route add 111.0.10.0/24 via 192.168.1.5' >> /opt/startup.sh
 echo 'systemctl start apache2.service' >> /opt/startup.sh

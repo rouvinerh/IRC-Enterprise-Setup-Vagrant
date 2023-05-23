@@ -8,6 +8,7 @@ iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT # public to internal
 iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT # internal to public
 
 # Download and install splunk forwarder
+## sometimes it gets resolution errors
 wget -O splunk.deb https://download.splunk.com/products/universalforwarder/releases/9.0.3/linux/splunkforwarder-9.0.3-dd0128b1f8cd-linux-2.6-amd64.deb
 dpkg -i splunk.deb
 cat > /opt/splunkforwarder/etc/system/local/user-seed.conf <<EOM
@@ -24,7 +25,7 @@ EOM
 # Start Splunk Forwarder 
 /opt/splunkforwarder/bin/splunk start -auth admin:password123
 
-## create boot script
+# create startup script
 echo '#!/bin/sh' > /opt/startup.sh
 echo 'echo 1 > /proc/sys/net/ipv4/ip_forward' >> /opt/startup.sh
 echo 'iptables -A FORWARD -j LOG --log-level info' >> /opt/startup.sh
@@ -54,5 +55,6 @@ systemctl daemon-reload
 systemctl enable start.service
 systemctl start start.service
 
+## TO ADD FIREWALL
 
 

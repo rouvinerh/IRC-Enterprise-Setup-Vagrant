@@ -128,8 +128,8 @@ Vagrant.configure("2") do |config|
     # virtualise
     host.vm.provider "virtualbox" do |v, override|
       v.name = "host"
-      v.memory = 2048
-      v.cpus = 1
+      v.memory = 4096
+      v.cpus = 2
       v.gui = true
     end 
   end

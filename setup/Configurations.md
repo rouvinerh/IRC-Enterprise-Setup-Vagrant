@@ -1,7 +1,7 @@
 # Network Configuration
 There will be 2 subnets in this configuration.
 1. External subnet - External network (where attacker resides)
-1. Internal subnet - Enterprise's internal network
+2. Internal subnet - Enterprise's internal network
 
 | Subnet | CIDR Range |
 | ------ | ---------- |
@@ -52,76 +52,77 @@ Forward all external destination packets to router's internal interface
 `TODO`
 
 # Launch Configuration
-Describe the launch configuration of each machine in a simple manner.
+Describe the launch configuration of each machine in a simple manner. 
+Virtual machines used can be found [here](https://app.vagrantup.com/boxes/). 
 
 ## External Subnet 
 ### Attacker (`111.0.10.10`)
-The attacker machine is a Kali 2022 machine (AMI: `ami-039fea51dbe2592e2`). 
-1. Add static route to route all traffic to `192.168.1.0/24` (internal subnet) to `111.0.10.5` (router).
+The attacker machine is a Kali 2023 machine (Box: `kalilinux/rolling`).
+1. Add static route to route all traffic to `192.168.1.0/24` (internal subnet) to `111.0.10.5` (router)
 
 ### Router (`111.0.10.5`)
-The router is a Ubuntu Server 2022 machine (AMI: `ami-055d15d9cfddf7bd3`). This EC2 instance will only be deployed after Ubuntu Web Server is deployed as it needs to fetch the FileBeat debian package from it.
+The router is a Ubuntu 18.04 LTS 64-bit box. (Box: `hashicorp/bionic64`).
 1. Set up forwarding and logging using `iptables` from one interface to another
-1. Download FileBeat debian package from `192.168.1.200` (Ubuntu Web Server) and install FileBeat.
-1. Update Filebeat.yml using `cat`
-1. Start Filebeat service
+2. Download FileBeat debian package from `192.168.1.200` (Ubuntu Web Server) and install FileBeat
+3. Update Filebeat.yml using `cat`
+4. Start Filebeat service
 
 ## Internal Subnet
 ### Router (`192.168.1.5`)
-The router is a Ubuntu Server 2022 machine (AMI: `ami-055d15d9cfddf7bd3`). This EC2 instance will only be deployed after Ubuntu Web Server is deployed as it needs to fetch the FileBeat debian package from it.
+The router is a Ubuntu 18.04 LTS 64-bit box. (Box: `hashicorp/bionic64`).
 1. Set up forwarding and logging using `iptables` from one interface to another
-1. Download FileBeat debian package from `192.168.1.200` (Ubuntu Web Server) and install FileBeat.
-1. Update Filebeat.yml using `cat`
-1. Start Filebeat service
+2. Download FileBeat debian package from `192.168.1.200` (Ubuntu Web Server) and install FileBeat
+3. Update Filebeat.yml using `cat`
+4. Start Filebeat service
 
 ### Ubuntu Web Server (`192.168.1.200`)
-The Ubuntu Web Server is a Ubuntu Server 20.04 LTS machine (AMI: `ami-055d15d9cfddf7bd3`). 
+The router is a Ubuntu 18.04 LTS 64-bit box. (Box: `hashicorp/bionic64`). 
 1. Update apt packages, install and start apache2
-1. Add static route to route all traffic to `111.0.10.0/24` (external subnet) to `192.168.1.5` (router).
-1. Download Filebeat package from `artifacts.elastic.co` to `/var/www/html`
-1. Install Filebeat
-1. Update Filebeat.yml using `cat`
-1. Start Filebeat service
+2. Add static route to route all traffic to `111.0.10.0/24` (external subnet) to `192.168.1.5` (router)
+3. Download Filebeat package from `artifacts.elastic.co` to `/var/www/html`
+4. Install Filebeat
+5. Update Filebeat.yml using `cat`
+6. Start Filebeat service
 
 ### SIEM (`192.168.1.100`)
-The SIEM is a Ubuntu Server 20.04 LTS machine (AMI: `ami-055d15d9cfddf7bd3`). 
-1. Add static route to route all traffic to `111.0.10.0/24` (external subnet) to `192.168.1.5` (router).
-1. Install docker and docker-compose
-1. Update elasticsearch.yml and docker-compose using `cat`
-1. Use docker-compose to start ELK stack
+The SIEM is a Ubuntu 18.04 LTS 64-bit box. (Box: `hashicorp/bionic64`).
+1. Add static route to route all traffic to `111.0.10.0/24` (external subnet) to `192.168.1.5` (router)
+2. Install docker and docker-compose
+3. Update elasticsearch.yml and docker-compose using `cat`
+4. Use docker-compose to start ELK stack
 
 ### DC (`192.168.1.150`)
-The DC is a Windows Server 2019 machine (AMI: `ami-050d504434d8b9ec5`)
-1. Add static route to route all traffic to `111.0.10.0/24` (external subnet) to `192.168.1.5` (router).
-1. Add firewall rule 
-1. Add audit policies
-1. Add registry keys to enable powershell logging 
-1. Hardcode administrator password 
-1. Download, install and configure sysmon
-1. Download, install and configure Winlogbeat
-1. Start Winlogbeat service
-1. Set up DC
+The DC is a Windows Server 2022 Standard machine (Box: `gusztavvargadr/windows-server`).
+1. Add static route to route all traffic to `111.0.10.0/24` (external subnet) to `192.168.1.5` (router)
+2. Add firewall rule 
+3. Add audit policies
+4. Add registry keys to enable powershell logging 
+5. Hardcode administrator password 
+6. Download, install and configure sysmon
+7. Download, install and configure Winlogbeat
+8. Start Winlogbeat service
+9. Set up DC
 
 ### Windows Host (`192.168.1.151`)
-The Windows Host is a Windows Server 2019 machine (AMI: `ami-050d504434d8b9ec5`)
-1. Add static route to route all traffic to `111.0.10.0/24` (external subnet) to `192.168.1.5` (router).
-1. Add firewall rule 
-1. Add audit policies
-1. Add registry keys to enable powershell logging 
-1. Hardcode administrator password 
-1. Download, install and configure sysmon
-1. Download, install and configure Winlogbeat
-1. Start Winlogbeat service
-1. Wait for DC to be set up and then join AD as `WEBSERVER01`
+The Windows Host is a Windows Server 2022 Standard machine (Box: `gusztavvargadr/windows-server`).
+1. Add static route to route all traffic to `111.0.10.0/24` (external subnet) to `192.168.1.5` (router)
+2. Add firewall rule 
+3. Add audit policies
+4. Add registry keys to enable powershell logging 
+5. Hardcode administrator password 
+6. Download, install and configure sysmon
+7. Download, install and configure Winlogbeat
+8. Start Winlogbeat service
+9. Wait for DC to be set up and then join AD as `WEBSERVER01`
 
 # FileBeat Configuration 
 
 ### Router (`111.0.10.5`/`192.168.1.5`)
 Enabled the following filebeat modules:
 1. `iptables`
-1. `system`
+2. `system`
 
 ### Router (`192.168.1.200`)
 Enabled the following filebeat modules:
 1. `apache`
-1. `system`
+2. `system`

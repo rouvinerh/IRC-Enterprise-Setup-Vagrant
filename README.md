@@ -1,5 +1,5 @@
 # Enterprise Infrastructure Setup on Vagrant 
-This project replicates IRC Enterprise Infrastructure Setup on AWS, and hosts it using Vagrant instead of AWS. There is currently only 1 SIEM available, and it is Splunk. (The other 2 will be added soon).
+This project replicates the IRC Enterprise Infrastructure Setup, and runs it using Vagrant instead of AWS. The only SIEM available now is Splunk (the other 2 will be added soon).
 
 Recommended Reading:
 1. [Vagrant Documentation](https://developer.hashicorp.com/vagrant/docs)
@@ -14,20 +14,25 @@ This project needs to have both Vagrant and Virtualbox installed to run.
 - [Virtual Box](https://www.virtualbox.org/wiki/Downloads)
 
 ## System Requirements
-At least 20GB of RAM and 100GB of Disk Space for all 6 machines with current configurations. The resources required for each machine can be changed in `Vagrantfile`. 
+At least 20GB of RAM and 100GB of disk space is required for all 6 machines to run smoothly with configurations specified in this repository. The resources used for each machine can be edited in `Vagrantfile` if needed.
 
 ## Set Up
-Clone this repository and run `vagrant up` in the directory that `Vagrantfile` is in. 
+Do the following:
 ```bash
 git clone https://github.com/rouvinerh/IRC-Enterprise-Setup-Vagrant
 cd IRC-Enterprise-Setup-Vagrant
 vagrant up
 ```
-For the first time, it takes around 30 minutes to install all VMs and run. Subsequent runs will take around 15 minutes depending on how good your computer is.
+It takes around 30 minutes to download all VMs and starting. 
 
-## Tear Down
-Stop all the VMs and run `destroy` to delete the machines.
+## Clean Up
+Stop and delete all machines from disk. 
 ```bash
+vagrant halt
 vagrant destroy --force
 ```
+
+## Known Issues
+1. Sometimes, the Windows hosts require manual logins to continue running `setup-DC.ps1` and `setup-windows.ps1` to start AD services.
+2. The `router` machine can sometimes fail to download external tools due to conflicts between the network interfaces. 
 
