@@ -55,22 +55,22 @@ Invoke-WebRequest -Uri $url -OutFile $dest
 
 # Downloading Sysmon
 $url = "https://download.sysinternals.com/files/Sysmon.zip"
-$dest = "C:\Users\Administrator\Desktop\Sysmon.zip"
+$dest = "C:\Users\vagrant\Documents\Sysmon.zip"
 Invoke-WebRequest -Uri $url -OutFile $dest
 
 # Unzipping Sysmon
-Expand-Archive -Path "C:\Users\Administrator\Desktop\Sysmon.zip" -DestinationPath "C:\Users\Administrator\Desktop\Sysmon"
+Expand-Archive -Path "C:\Users\vagrant\Documents\Sysmon.zip" -DestinationPath "C:\Users\vagrant\Documents\Sysmon"
 
 # Installing Sysmon
-Start-Process -FilePath "Sysmon64.exe" -WorkingDirectory "C:\Users\Administrator\Desktop\Sysmon" -ArgumentList "-accepteula","-i C:\Windows\config.xml"
+Start-Process -FilePath "Sysmon64.exe" -WorkingDirectory "C:\Users\vagrant\Documents\Sysmon" -ArgumentList "-accepteula","-i C:\Windows\config.xml"
 
 # Downloading Winlogbeat
 $url = "https://artifacts.elastic.co/downloads/beats/winlogbeat/winlogbeat-8.3.1-windows-x86_64.zip"
-$dest = "C:\Users\Administrator\Desktop\winlogbeat.zip"
+$dest = "C:\Users\vagrant\Documents\winlogbeat.zip"
 Invoke-WebRequest -Uri $url -OutFile $dest
 
 # Unzipping Winlogbeat
-Expand-Archive -Path "C:\Users\Administrator\Desktop\winlogbeat.zip" -DestinationPath "C:\Program Files\winlogbeat"
+Expand-Archive -Path "C:\Users\vagrant\Documents\winlogbeat.zip" -DestinationPath "C:\Program Files\winlogbeat"
 
 # Configuring Winlogbeat
 cd "C:\Program Files\winlogbeat\winlogbeat-8.3.1-windows-x86_64"

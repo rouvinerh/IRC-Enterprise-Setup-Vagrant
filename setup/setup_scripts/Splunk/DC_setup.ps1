@@ -54,18 +54,18 @@ Invoke-WebRequest -Uri $url -OutFile $dest
 
 # Downloading Sysmon
 $url = "https://download.sysinternals.com/files/Sysmon.zip"
-$dest = "C:\Users\Vagrant\Documents\Sysmon.zip"
+$dest = "C:\Users\vagrant\Documents\Sysmon.zip"
 Invoke-WebRequest -Uri $url -OutFile $dest
 
 # Unzipping Sysmon
-Expand-Archive -Path "C:\Users\Administrator\Desktop\Sysmon.zip" -DestinationPath "C:\Users\Administrator\Desktop\Sysmon"
+Expand-Archive -Path "C:\Users\vagrant\Documents\Sysmon.zip" -DestinationPath "C:\Users\vagrant\Documents\Sysmon"
 
 # Installing Sysmon
-Start-Process -FilePath "Sysmon64.exe" -WorkingDirectory "C:\Users\Administrator\Desktop\Sysmon" -ArgumentList "-accepteula","-i C:\Windows\config.xml"
+Start-Process -FilePath "Sysmon64.exe" -WorkingDirectory "C:\Users\vagrant\Documents\Sysmon" -ArgumentList "-accepteula","-i C:\Windows\config.xml"
 
 # Downloading Splunk Forwarder for Windows
 $url = "https://download.splunk.com/products/universalforwarder/releases/9.0.3/windows/splunkforwarder-9.0.3-dd0128b1f8cd-x64-release.msi"
-$dest = "C:\Users\Vagrant\Documents\splunkforwarder.msi"
+$dest = "C:\Users\vagrant\Documents\splunkforwarder.msi"
 Invoke-WebRequest -Uri $url -OutFile $dest
 
 
