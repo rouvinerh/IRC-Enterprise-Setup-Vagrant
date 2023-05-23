@@ -2,7 +2,7 @@
 This project replicates IRC Enterprise Infrastructure Setup on AWS, and hosts it using Vagrant instead of AWS. There is currently only 1 SIEM available, and it is Splunk. (The other 2 will be added soon).
 
 Vagrant Documentation:
-1. [Vagrant Documentation](https://developer.hashicorp.com/vagrant/docs)
+1. [Recommended Reading](https://developer.hashicorp.com/vagrant/docs)
 
 # Network Diagram
 <img title="Network Diagram" alt="Alt text" src="/Images/network_diagram.png">
@@ -14,7 +14,7 @@ This project needs to have both Vagrant and Virtualbox installed to run.
 - [Virtual Box](https://www.virtualbox.org/wiki/Downloads)
 
 ## System Requirements
---
+At least 20GB of RAM and 100GB of Disk Space for all 6 machines with current configurations. The resources required for each machine can be changed in `Vagrantfile`. 
 
 ## Set Up
 Clone this repository and run `vagrant up` in the directory that `Vagrantfile` is in. 
@@ -28,7 +28,6 @@ For the first time, it takes around 30 minutes to install all VMs and run. Subse
 ## Tear Down
 Stop all the VMs and run `destroy` to delete the machines.
 ```bash
-vagrant halt
 vagrant destroy --force
 ```
 

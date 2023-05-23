@@ -66,7 +66,7 @@ Start-Process -FilePath "Sysmon64.exe" -WorkingDirectory "C:\Users\vagrant\Docum
 
 # Downloading Splunk Forwarder for Windows
 $url = "https://download.splunk.com/products/universalforwarder/releases/9.0.3/windows/splunkforwarder-9.0.3-dd0128b1f8cd-x64-release.msi"
-$dest = "CC:\Users\vagrant\Documents\splunkforwarder.msi"
+$dest = "C:\Users\vagrant\Documents\splunkforwarder.msi"
 Invoke-WebRequest -Uri $url -OutFile $dest
 
 $RECEIVING_INDEXER="192.168.1.100:9997"
@@ -139,13 +139,13 @@ start_from = oldest
 # Restart SplunkForwarder to apply configuration
 Restart-Service SplunkForwarder
 
-## Set up the Active Directory and this host as WEBSERVER01
 # Set up scheduled task as the setup process requires restarting
 $url = "https://gist.githubusercontent.com/ChesterSng/b402c9663d0eca3e9d8c423b5a6b2864/raw/4ca0df5bcf787e8231b3e824adb959d9544e35c1/SetupWindows.xml"
 $dest = "C:\Users\Public\SetupWindows.xml"
 Invoke-WebRequest -Uri $url -OutFile $dest
 
-$url = "https://gist.githubusercontent.com/ChesterSng/f062e87ac6e1eb5911c1547cb02a2cbd/raw/ef931a943d410ee648a410016d0535c887528eab/setup-windows.ps1"
+# buggy DNS command sometimes, changed with my script
+$url = "https://gist.githubusercontent.com/rouvinerh/ea4be427d178b4e66da900d79595e50a/raw/f1110b162f910df5902f1919587738ab21709593/setup-windows.ps1"
 $dest = "C:\Users\Public\setup-windows.ps1"
 Invoke-WebRequest -Uri $url -OutFile $dest
 

@@ -68,7 +68,6 @@ $url = "https://download.splunk.com/products/universalforwarder/releases/9.0.3/w
 $dest = "C:\Users\vagrant\Documents\splunkforwarder.msi"
 Invoke-WebRequest -Uri $url -OutFile $dest
 
-
 $RECEIVING_INDEXER="192.168.1.100:9997"
 $LOGON_USERNAME="admin"
 $LOGON_PASSWORD="password123"
@@ -139,7 +138,6 @@ start_from = oldest
 # Restart SplunkForwarder to apply configuration
 Restart-Service SplunkForwarder
 
-## Set up the Active Directory and this host as the DC
 # Set up scheduled task as the setup process requires restarting
 $url = "https://gist.githubusercontent.com/ChesterSng/f37e7b665dbeb555f82d8c3ca42be7a5/raw/4393f6c2784f109c1309aa85acaa4b089042831c/SetupDC.xml"
 $dest = "C:\Users\Public\SetupDC.xml"
@@ -149,5 +147,4 @@ $url = "https://gist.githubusercontent.com/ChesterSng/189b3f5b00b6d82d917f8da6ab
 $dest = "C:\Users\Public\setup-dc.ps1"
 Invoke-WebRequest -Uri $url -OutFile $dest
 
-# Run the script, this process should take ~20mins and will restart multiple times, maybe next time when we use a more powerful instance it can be faster ;_;
 C:\Users\Public\setup-dc.ps1
