@@ -1,0 +1,58 @@
+#!/bin/sh
+apt update -y
+
+# Routing Table
+echo 1 > /proc/sys/net/ipv4/ip_forward
+iptables -A FORWARD -j LOG --log-level info # Log all FORWARD chain packets, will be logged inside /var/log/kern.log
+iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT # public to internal
+iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT # internal to public
+
+# Download and install splunk forwarder
+wget -O splunk.deb https://download.splunk.com/products/universalforwarder/releases/9.0.3/linux/splunkforwarder-9.0.3-dd0128b1f8cd-linux-2.6-amd64.deb
+dpkg -i splunk.deb
+cat > /opt/splunkforwarder/etc/system/local/user-seed.conf <<EOM
+[user_info]
+USERNAME=admin
+PASSWORD=password123
+EOM
+
+/opt/splunkforwarder/bin/splunk enable boot-start --accept-license --answer-yes --no-prompt
+# Configure splunk forwarder to forward web logs and system logs to SIEM
+/opt/splunkforwarder/bin/splunk add forward-server 192.168.1.100:9997 -auth admin:password123
+/opt/splunkforwarder/bin/splunk add monitor /var/log/syslog -index main -sourcetype linux_syslog -auth admin:password123
+/opt/splunkforwarder/bin/splunk add monitor /var/log/auth.log -index main -sourcetype linux_secure -auth admin:password123
+# Start Splunk Forwarder 
+/opt/splunkforwarder/bin/splunk start -auth admin:password123
+
+## create boot script
+echo '#!/bin/sh' > /opt/startup.sh
+echo 'echo 1 > /proc/sys/net/ipv4/ip_forward' >> /opt/startup.sh
+echo 'iptables -A FORWARD -j LOG --log-level info' >> /opt/startup.sh
+echo 'iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT' >> /opt/startup.sh
+echo 'iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT' >> /opt/startup.sh
+echo '/opt/splunkforwarder/bin/splunk add forward-server 192.168.1.100:9997 -auth admin:password123' >> /opt/startup.sh
+echo '/opt/splunkforwarder/bin/splunk add monitor /var/log/syslog -index main -sourcetype linux_syslog -auth admin:password123' >> /opt/startup.sh
+echo '/opt/splunkforwarder/bin/splunk add monitor /var/log/auth.log -index main -sourcetype linux_secure -auth admin:password123' >> /opt/startup.sh
+echo '/opt/splunkforwarder/bin/splunk start -auth admin:password123' >> /opt/startup.sh
+chmod +x /opt/startup.sh
+
+cat > /etc/systemd/system/start.service << EOM
+[Unit]
+Description=Startup script
+
+[Service]
+User=root
+WorkingDirectory=/opt
+ExecStart=/bin/sh /opt/startup.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOM
+
+systemctl daemon-reload
+systemctl enable start.service
+systemctl start start.service
+
+
+

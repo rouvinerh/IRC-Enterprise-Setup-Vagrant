@@ -1,0 +1,2 @@
+# Setup Files 
+This directory contains files that will be *uploaded* to the ec2 instances for setup purposes. Currently the method of hosting these files will be through Github Gists. Refer to [Developer Tips](../../Developer%20Tips.md) for more information.
