@@ -14,6 +14,7 @@ rm -rf /home/vagrant/caldera/plugins/emu
 git clone https://github.com/mitre/emu
 cd /home/vagrant/caldera/plugins/emu
 ./download_payloads.sh
+rm /home/vagrant/caldera/conf/default.yml
 
 # create startup script
 echo '#!/bin/sh' > /opt/startup.sh

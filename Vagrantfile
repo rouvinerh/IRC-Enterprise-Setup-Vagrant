@@ -78,6 +78,9 @@ Vagrant.configure("2") do |config|
     # scripts
     kali.vm.provision "shell", path: "setup/setup_scripts/Splunk/attacker_setup.sh", privileged: true
 
+    # upload config file
+    kali.vm.provision "file", source: "setup/setup_files/attacker/default.yml", destination: "/home/vagrant/caldera/conf/default.yml"
+    
     # virtualise
     kali.vm.provider "virtualbox" do |v, override|
       v.name = "kali"
