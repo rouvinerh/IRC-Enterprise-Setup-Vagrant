@@ -17,7 +17,7 @@ if ($env:COMPUTERNAME -ne "WEBSERVER01") {
     # powershell -ep bypass C:\Users\Public\install-tools.ps1;
 
     Start-Sleep -Seconds 3;
-    Rename-Computer -NewName "WEBSERVER01" -Restart;
+    Rename-Computer -NewName "WEBSERVER01" -Restart
 } 
 # Step 2
 elseif ((Get-WmiObject -Namespace root\cimv2 -Class Win32_ComputerSystem).Domain -ne "CSA.local") {
@@ -29,23 +29,22 @@ elseif ((Get-WmiObject -Namespace root\cimv2 -Class Win32_ComputerSystem).Domain
     
     # Test if DC is successfully set up, if not sleep for 60 seconds
     while (-not (Test-Connection CSA-DC.CSA.local -Count 1 -Quiet)) {
-        Write-Host "[i] Waiting for DC to be set up...";
+        Write-Host "[i] Waiting for DC to be set up..."
         Start-Sleep -Seconds 60;
     }
-    Write-Host "[i] DC Set up done!";
+    Write-Host "[i] DC Set up done!"
 
     # Join the AD as WEBSERVER01
     $joinCred = New-Object pscredential -ArgumentList ([pscustomobject]@{
-        UserName = $null;
-        Password = (ConvertTo-SecureString -String 'ws1Passw0rd!' -AsPlainText -Force)[0];
+        UserName = $null
+        Password = (ConvertTo-SecureString -String 'ws1Passw0rd!' -AsPlainText -Force)[0]
       })
     
     # DC needs to restart, so joining the domain might fail
-    while (-not (Add-Computer -Domain "CSA.local" -Options UnsecuredJoin,PasswordPass -Credential $joinCred)) {
-        Write-Host "[i] Waiting for DC to boot up...";
-        Start-Sleep -Seconds 60;
+    while (-not (Add-Computer -Domain "CSA.local" -Options UnsecuredJoin,PasswordPass -Credential $joinCred -Restart)) {
+        Write-Host "[i] Waiting for DC to be boot up..."
+        Start-Sleep -Seconds 30;
     }
-    Restart-Computer;
 }   
 # Step 3
 else {

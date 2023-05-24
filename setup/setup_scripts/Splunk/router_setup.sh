@@ -55,6 +55,5 @@ systemctl daemon-reload
 systemctl enable start.service
 systemctl start start.service
 
-## TO ADD FIREWALL
 
 

@@ -33,6 +33,6 @@ vagrant destroy --force
 ```
 
 ## Known Issues
-1. Sometimes, the Windows hosts require manual logins to continue running `setup-DC.ps1` and `setup-windows.ps1` to start AD services.
+1. The Windows hosts require manual logins to continue running `setup-DC.ps1` and `setup-windows.ps1` to start AD services.
 2. The `router` machine can sometimes fail to download external tools due to conflicts between the network interfaces. 
-
+3. Machines can hang sometimes, and this only be resolved by right-clicking the machines within Virtual Box. Probably a bug in Vagrant. 

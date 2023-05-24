@@ -139,14 +139,5 @@ start_from = oldest
 # Restart SplunkForwarder to apply configuration
 Restart-Service SplunkForwarder
 
-# Set up scheduled task as the setup process requires restarting
-$url = "https://gist.githubusercontent.com/ChesterSng/b402c9663d0eca3e9d8c423b5a6b2864/raw/4ca0df5bcf787e8231b3e824adb959d9544e35c1/SetupWindows.xml"
-$dest = "C:\Users\Public\SetupWindows.xml"
-Invoke-WebRequest -Uri $url -OutFile $dest
-
-# DNS command doesn't work, replaced with my own script
-$url = "https://gist.githubusercontent.com/rouvinerh/ea4be427d178b4e66da900d79595e50a/raw/f1110b162f910df5902f1919587738ab21709593/setup-windows.ps1"
-$dest = "C:\Users\Public\setup-windows.ps1"
-Invoke-WebRequest -Uri $url -OutFile $dest
-
+# run AD script
 C:\Users\Public\setup-windows.ps1

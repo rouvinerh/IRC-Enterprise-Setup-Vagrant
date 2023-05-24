@@ -138,13 +138,5 @@ start_from = oldest
 # Restart SplunkForwarder to apply configuration
 Restart-Service SplunkForwarder
 
-# Set up scheduled task as the setup process requires restarting
-$url = "https://gist.githubusercontent.com/ChesterSng/f37e7b665dbeb555f82d8c3ca42be7a5/raw/4393f6c2784f109c1309aa85acaa4b089042831c/SetupDC.xml"
-$dest = "C:\Users\Public\SetupDC.xml"
-Invoke-WebRequest -Uri $url -OutFile $dest
-
-$url = "https://gist.githubusercontent.com/ChesterSng/189b3f5b00b6d82d917f8da6ab81c83e/raw/8037d8cddd82f74659549ba8d085f7dada6ed911/setup-dc.ps1"
-$dest = "C:\Users\Public\setup-dc.ps1"
-Invoke-WebRequest -Uri $url -OutFile $dest
-
+# run AD script
 C:\Users\Public\setup-dc.ps1

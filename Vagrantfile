@@ -13,8 +13,6 @@ Vagrant.configure("2") do |config|
 
     # scripts
     router.vm.provision "shell", path: "setup/setup_scripts/Splunk/router_setup.sh", privileged: true
-    # router.vm.provision "shell", path: "setup/setup_scripts/ELK/router_setup.sh", privileged: true
-    # router.vm.provision "shell", path: "setup/setup_scripts/Vanilla/router_setup.sh", privileged: true
 
     # virtualize
     router.vm.provider "virtualbox" do |v, override|
@@ -35,8 +33,6 @@ Vagrant.configure("2") do |config|
 
     # scripts 
     siem.vm.provision "shell", path: "setup/setup_scripts/Splunk/siem_setup.sh", privileged: true
-    # siem.vm.provision "shell", path: "setup/setup_scripts/ELK/siem_setup.sh", privileged: true
-    # siem.vm.provision "shell", path: "setup/setup_scripts/Vanilla/siem_setup.sh", privileged: true
 
     # virtualise
     siem.vm.provider "virtualbox" do |v, override|
@@ -55,10 +51,12 @@ Vagrant.configure("2") do |config|
     # network
     dc.vm.network "private_network", ip: "192.168.1.150"
 
+    # upload DC setup file
+    dc.vm.provision "file", source: "setup/setup_files/dc/SetupDC.xml", destination: "C:/Users/Public/SetupDC.xml"
+    dc.vm.provision "file", source: "setup/setup_files/dc/setup-dc.ps1", destination: "C:/Users/Public/setup-dc.ps1"
+
     # scripts
     dc.vm.provision "shell", path: "setup/setup_scripts/Splunk/DC_setup.ps1", privileged: true
-    # dc.vm.provision "shell", path: "setup/setup_scripts/ELK/DC_setup.ps1", privileged: true
-    # dc.vm.provision "shell", path: "setup/setup_scripts/Vanilla/DC_setup.ps1", privileged: true
 
     # virtualise
     dc.vm.provider "virtualbox" do |v, override|
@@ -79,8 +77,6 @@ Vagrant.configure("2") do |config|
 
     # scripts
     kali.vm.provision "shell", path: "setup/setup_scripts/Splunk/attacker_setup.sh", privileged: true
-    # kali.vm.provision "shell", path: "setup/setup_scripts/ELK/attacker_setup.sh", privileged: true
-    # kali.vm.provision "shell", path: "setup/setup_scripts/Vanilla/attacker_setup.sh", privileged: true
 
     # virtualise
     kali.vm.provider "virtualbox" do |v, override|
@@ -101,8 +97,6 @@ Vagrant.configure("2") do |config|
 
     # scripts 
     web.vm.provision "shell", path: "setup/setup_scripts/Splunk/ubuntu_web_server_setup.sh", privileged: true
-    # web.vm.provision "shell", path: "setup/setup_scripts/ELK/ubuntu_web_server_setup.sh", privileged: true
-    # web.vm.provision "shell", path: "setup/setup_scripts/Vanilla/ubuntu_web_server_setup.sh", privileged: true
 
     # virtualise
     web.vm.provider "virtualbox" do |v, override|
@@ -120,10 +114,12 @@ Vagrant.configure("2") do |config|
     # network 
     host.vm.network "private_network", ip: "192.168.1.151"
 
+    # upload host setup file
+    host.vm.provision "file", source: "setup/setup_files/host/SetupWindows.xml", destination: "C:/Users/Public/SetupWindows.xml"
+    host.vm.provision "file", source: "setup/setup_files/host/setup-windows.ps1", destination: "C:/Users/Public/setup-windows.ps1"
+
     # scripts
     host.vm.provision "shell", path: "setup/setup_scripts/Splunk/windows_host_setup.ps1", privileged: true, run: 'always'
-    # host.vm.provision "shell", path: "setup/setup_scripts/ELK/windows_host_setup.ps1", privileged: true
-    # host.vm.provision "shell", path: "setup/setup_scripts/Vanilla/windows_host_setup.ps1", privileged: true
 
     # virtualise
     host.vm.provider "virtualbox" do |v, override|
