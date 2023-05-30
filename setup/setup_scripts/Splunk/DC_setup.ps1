@@ -138,5 +138,8 @@ start_from = oldest
 # Restart SplunkForwarder to apply configuration
 Restart-Service SplunkForwarder
 
+# turn off defender
+Set-MpPreference -DisableRealtimeMonitoring $true
+
 # run AD script
 C:\Users\Public\setup-dc.ps1
