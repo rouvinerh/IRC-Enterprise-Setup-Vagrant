@@ -16,6 +16,10 @@ cd /home/vagrant/caldera/plugins/emu
 ./download_payloads.sh
 rm /home/vagrant/caldera/conf/default.yml
 
+# import data file
+rm -rf /home/vagrant/caldera/data
+unzip /home/vagrant/data.zip -d /home/vagrant/caldera/data
+
 # create startup script
 echo '#!/bin/sh' > /opt/startup.sh
 echo 'ip route add 192.168.1.0/24 via 111.0.10.5' >> /opt/startup.sh
