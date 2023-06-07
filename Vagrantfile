@@ -14,7 +14,6 @@ Vagrant.configure("2") do |config|
     # scripts
     router.vm.provision "file", source: "setup/setup_files/splunkforwarder.deb", destination: "/home/vagrant/splunk.deb"
     router.vm.provision "shell", path: "setup/setup_scripts/Splunk/router_setup.sh", privileged: true
-   # router.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     # virtualize
     router.vm.provider "virtualbox" do |v, override|
       v.name = "router"
@@ -35,7 +34,6 @@ Vagrant.configure("2") do |config|
     # scripts 
     siem.vm.provision "file", source: "setup/setup_files/splunk.deb", destination: "/home/vagrant/splunk.deb"
     siem.vm.provision "shell", path: "setup/setup_scripts/Splunk/siem_setup.sh", privileged: true
-    #siem.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     # virtualise
     siem.vm.provider "virtualbox" do |v, override|
       v.name = "siem"
@@ -60,7 +58,6 @@ Vagrant.configure("2") do |config|
     dc.vm.provision "file", source: "setup/setup_files/Sysmon.zip", destination: "C:/Users/vagrant/Documents/Sysmon.zip"
     dc.vm.provision "file", source: "setup/setup_files/sysmonconfig-export.xml", destination: "C:/Windows/config.xml"
     dc.vm.provision "file", source: "setup/setup_files/splunkforwarder.msi", destination: "C:/Users/vagrant/Documents/splunkforwarder.msi"
-    #dc.vm.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     # scripts
     dc.vm.provision "shell", path: "setup/setup_scripts/Splunk/DC_setup.ps1", privileged: true
 
@@ -86,7 +83,6 @@ Vagrant.configure("2") do |config|
 
     # upload config file
     kali.vm.provision "file", source: "setup/setup_files/attacker/default.yml", destination: "/home/vagrant/caldera/conf/default.yml"
-    #kali.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     # virtualise
     kali.vm.provider "virtualbox" do |v, override|
       v.name = "kali"
@@ -106,7 +102,6 @@ Vagrant.configure("2") do |config|
 #    # scripts 
 #    web.vm.provision "file", source: "setup/setup_files/splunk.deb", destination: "/home/vagrant/splunk.deb"
 #    web.vm.provision "shell", path: "setup/setup_scripts/Splunk/ubuntu_web_server_setup.sh", privileged: true
-#    web.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
 #    # virtualise
 #    web.vm.provider "virtualbox" do |v, override|
 #      v.name = "web-server"
@@ -129,7 +124,6 @@ Vagrant.configure("2") do |config|
 #    host.vm.provision "file", source: "setup/setup_files/Sysmon.zip", destination: "C:/Users/vagrant/Documents/Sysmon.zip"
 #    host.vm.provision "file", source: "setup/setup_files/sysmonconfig-export.xml", destination: "C:/Windows/config.xml"
 #    host.vm.provision "file", source: "setup/setup_files/splunkforwarder.msi", destination: "C:/Users/vagrant/Documents/splunkforwarder.msi"
-#    host.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
 #    # scripts
 #    host.vm.provision "shell", path: "setup/setup_scripts/Splunk/windows_host_setup.ps1", privileged: true, run: 'always'
 #

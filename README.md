@@ -1,7 +1,7 @@
 # Enterprise Infrastructure Setup on Vagrant 
 This project replicates the IRC Enterprise Infrastructure Setup, and runs it using Vagrant instead of AWS. The only SIEM available now is Splunk (the other 2 will be added soon).
 
-Tested on vagrant 2.3.4 and virtualbox 7.0.8
+Tested on Vagrant 2.3.4 and Virtualbox 7.0.8.
 
 Recommended Reading:
 1. [Vagrant Documentation](https://developer.hashicorp.com/vagrant/docs)
@@ -40,3 +40,4 @@ vagrant destroy --force
 
 ## Known Issues
 1. The Windows hosts require manual logins to continue running `setup-DC.ps1` and `setup-windows.ps1` to start AD services.
+2. The bidirectional clipboard cannot be modified by Vagrant, and has to be configured manually within VirtualBox. Go to Machine > Settings > General > Advanced and changed Shared Clipboard to Bidirectional. 
