@@ -9,3 +9,9 @@ crash.*.log
 
 # Ignore Vagrant Log Files
 *.vagrant
+
+# Ignore downloaded files
+*.zip
+*.msi
+*.deb
+*.xml

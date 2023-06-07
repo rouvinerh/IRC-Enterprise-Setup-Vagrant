@@ -17,6 +17,8 @@ Vagrant.configure("2") do |config|
     # virtualize
     router.vm.provider "virtualbox" do |v, override|
       v.name = "router"
+      v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+      v.customize ['modifyvm', :id, '--draganddrop', 'bidirectional']
       v.memory = 2048
       v.cpus = 1
       v.gui = true
@@ -37,6 +39,8 @@ Vagrant.configure("2") do |config|
     # virtualise
     siem.vm.provider "virtualbox" do |v, override|
       v.name = "siem"
+      v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+      v.customize ['modifyvm', :id, '--draganddrop', 'bidirectional']
       v.memory = 4096
       v.cpus = 1
       v.gui = true
@@ -64,6 +68,8 @@ Vagrant.configure("2") do |config|
     # virtualise
     dc.vm.provider "virtualbox" do |v, override|
       v.name = "DC"
+      v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+      v.customize ['modifyvm', :id, '--draganddrop', 'bidirectional']
       v.memory = 8192
       v.cpus = 2
       v.gui = true
@@ -86,6 +92,8 @@ Vagrant.configure("2") do |config|
     # virtualise
     kali.vm.provider "virtualbox" do |v, override|
       v.name = "kali"
+      v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+      v.customize ['modifyvm', :id, '--draganddrop', 'bidirectional']
       v.memory = 4096
       v.cpus = 2
       v.gui = true
@@ -105,6 +113,8 @@ Vagrant.configure("2") do |config|
 #    # virtualise
 #    web.vm.provider "virtualbox" do |v, override|
 #      v.name = "web-server"
+#      v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+#      v.customize ['modifyvm', :id, '--draganddrop', 'bidirectional']
 #      v.memory = 2048
 #      v.cpus = 1
 #      v.gui = true
@@ -130,6 +140,8 @@ Vagrant.configure("2") do |config|
 #    # virtualise
 #    host.vm.provider "virtualbox" do |v, override|
 #      v.name = "host"
+#      v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+#      v.customize ['modifyvm', :id, '--draganddrop', 'bidirectional']
 #      v.memory = 4096
 #      v.cpus = 2
 #      v.gui = true
