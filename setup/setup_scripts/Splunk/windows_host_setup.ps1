@@ -47,28 +47,13 @@ Set-ItemProperty -Path "HKLM:\Software\Wow6432Node\Policies\Microsoft\Windows\Po
 # Set password of administrator account for easier RDP
 net user Administrator "P@ssw0rd123"
 
-
-# Downloading Sysmon's config file to C:\Windows
-$url = "https://raw.githubusercontent.com/SwiftOnSecurity/sysmon-config/master/sysmonconfig-export.xml"
-$dest = "C:\Windows\config.xml"
-Invoke-WebRequest -Uri $url -OutFile $dest
-
-# Downloading Sysmon
-$url = "https://download.sysinternals.com/files/Sysmon.zip"
-$dest = "C:\Users\vagrant\Documents\Sysmon.zip"
-Invoke-WebRequest -Uri $url -OutFile $dest
-
 # Unzipping Sysmon
 Expand-Archive -Path "C:\Users\vagrant\Documents\Sysmon.zip" -DestinationPath "C:\Users\vagrant\Documents\Sysmon"
 
 # Installing Sysmon
 Start-Process -FilePath "Sysmon64.exe" -WorkingDirectory "C:\Users\vagrant\Documents\Sysmon" -ArgumentList "-accepteula","-i C:\Windows\config.xml"
 
-# Downloading Splunk Forwarder for Windows
-$url = "https://download.splunk.com/products/universalforwarder/releases/9.0.3/windows/splunkforwarder-9.0.3-dd0128b1f8cd-x64-release.msi"
 $dest = "C:\Users\vagrant\Documents\splunkforwarder.msi"
-Invoke-WebRequest -Uri $url -OutFile $dest
-
 $RECEIVING_INDEXER="192.168.1.100:9997"
 $LOGON_USERNAME="admin"
 $LOGON_PASSWORD="password123"

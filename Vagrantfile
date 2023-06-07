@@ -12,8 +12,9 @@ Vagrant.configure("2") do |config|
     router.vm.network "public_network",bridge: "enp0s3", ip: "111.0.10.5"
 
     # scripts
+    router.vm.provision "file", source: "setup/setup_files/splunkforwarder.deb", destination: "/home/vagrant/splunk.deb"
     router.vm.provision "shell", path: "setup/setup_scripts/Splunk/router_setup.sh", privileged: true
-
+   # router.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     # virtualize
     router.vm.provider "virtualbox" do |v, override|
       v.name = "router"
@@ -32,12 +33,13 @@ Vagrant.configure("2") do |config|
     siem.vm.network "private_network", ip: "192.168.1.100"
 
     # scripts 
+    siem.vm.provision "file", source: "setup/setup_files/splunk.deb", destination: "/home/vagrant/splunk.deb"
     siem.vm.provision "shell", path: "setup/setup_scripts/Splunk/siem_setup.sh", privileged: true
-
+    #siem.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     # virtualise
     siem.vm.provider "virtualbox" do |v, override|
       v.name = "siem"
-      v.memory = 2048
+      v.memory = 4096
       v.cpus = 1
       v.gui = true
     end
@@ -54,15 +56,18 @@ Vagrant.configure("2") do |config|
     # upload DC setup file
     dc.vm.provision "file", source: "setup/setup_files/dc/SetupDC.xml", destination: "C:/Users/Public/SetupDC.xml"
     dc.vm.provision "file", source: "setup/setup_files/dc/setup-dc.ps1", destination: "C:/Users/Public/setup-dc.ps1"
-    dc.vm.provision "file", source: "setup/setup_files/dc/innocent.exe", destination: "C:/Windows/Tasks/innocent.exe"
-
+    
+    dc.vm.provision "file", source: "setup/setup_files/Sysmon.zip", destination: "C:/Users/vagrant/Documents/Sysmon.zip"
+    dc.vm.provision "file", source: "setup/setup_files/sysmonconfig-export.xml", destination: "C:/Windows/config.xml"
+    dc.vm.provision "file", source: "setup/setup_files/splunkforwarder.msi", destination: "C:/Users/vagrant/Documents/splunkforwarder.msi"
+    #dc.vm.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     # scripts
     dc.vm.provision "shell", path: "setup/setup_scripts/Splunk/DC_setup.ps1", privileged: true
 
     # virtualise
     dc.vm.provider "virtualbox" do |v, override|
       v.name = "DC"
-      v.memory = 4096
+      v.memory = 8192
       v.cpus = 2
       v.gui = true
     end 
@@ -81,7 +86,7 @@ Vagrant.configure("2") do |config|
 
     # upload config file
     kali.vm.provision "file", source: "setup/setup_files/attacker/default.yml", destination: "/home/vagrant/caldera/conf/default.yml"
-    
+    #kali.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     # virtualise
     kali.vm.provider "virtualbox" do |v, override|
       v.name = "kali"
@@ -92,45 +97,48 @@ Vagrant.configure("2") do |config|
   end 
 
 
-  config.vm.define "web" do |web|
-    web.vm.box = "hashicorp/bionic64"
-    web.vm.hostname= "web-server"
-
-    # network
-    web.vm.network "private_network", ip: "192.168.1.200"
-
-    # scripts 
-    web.vm.provision "shell", path: "setup/setup_scripts/Splunk/ubuntu_web_server_setup.sh", privileged: true
-
-    # virtualise
-    web.vm.provider "virtualbox" do |v, override|
-      v.name = "web-server"
-      v.memory = 2048
-      v.cpus = 1
-      v.gui = true
-    end
-  end 
-
-  config.vm.define "host" do |host|
-    host.vm.box = "gusztavvargadr/windows-server"
-    host.vm.hostname= "host"
-
-    # network 
-    host.vm.network "private_network", ip: "192.168.1.151"
-
-    # upload host setup file
-    host.vm.provision "file", source: "setup/setup_files/host/SetupWindows.xml", destination: "C:/Users/Public/SetupWindows.xml"
-    host.vm.provision "file", source: "setup/setup_files/host/setup-windows.ps1", destination: "C:/Users/Public/setup-windows.ps1"
-
-    # scripts
-    host.vm.provision "shell", path: "setup/setup_scripts/Splunk/windows_host_setup.ps1", privileged: true, run: 'always'
-
-    # virtualise
-    host.vm.provider "virtualbox" do |v, override|
-      v.name = "host"
-      v.memory = 4096
-      v.cpus = 2
-      v.gui = true
-    end 
-  end
+##   web.vm.box = "hashicorp/bionic64"
+#    web.vm.hostname= "web-server"
+#
+#    # network
+#    web.vm.network "private_network", ip: "192.168.1.200"
+#
+#    # scripts 
+#    web.vm.provision "file", source: "setup/setup_files/splunk.deb", destination: "/home/vagrant/splunk.deb"
+#    web.vm.provision "shell", path: "setup/setup_scripts/Splunk/ubuntu_web_server_setup.sh", privileged: true
+#    web.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+#    # virtualise
+#    web.vm.provider "virtualbox" do |v, override|
+#      v.name = "web-server"
+#      v.memory = 2048
+#      v.cpus = 1
+#      v.gui = true
+#    end
+#  end 
+#
+#  config.vm.define "host" do |host|
+#    host.vm.box = "gusztavvargadr/windows-server"
+#    host.vm.hostname= "host"
+#
+#    # network 
+#    host.vm.network "private_network", ip: "192.168.1.151"
+#
+#    # upload host setup file
+#    host.vm.provision "file", source: "setup/setup_files/host/SetupWindows.xml", destination: "C:/Users/Public/SetupWindows.xml"
+#    host.vm.provision "file", source: "setup/setup_files/host/setup-windows.ps1", destination: "C:/Users/Public/setup-windows.ps1"
+#    host.vm.provision "file", source: "setup/setup_files/Sysmon.zip", destination: "C:/Users/vagrant/Documents/Sysmon.zip"
+#    host.vm.provision "file", source: "setup/setup_files/sysmonconfig-export.xml", destination: "C:/Windows/config.xml"
+#    host.vm.provision "file", source: "setup/setup_files/splunkforwarder.msi", destination: "C:/Users/vagrant/Documents/splunkforwarder.msi"
+#    host.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+#    # scripts
+#    host.vm.provision "shell", path: "setup/setup_scripts/Splunk/windows_host_setup.ps1", privileged: true, run: 'always'
+#
+#    # virtualise
+#    host.vm.provider "virtualbox" do |v, override|
+#      v.name = "host"
+#      v.memory = 4096
+#      v.cpus = 2
+#      v.gui = true
+#    end 
+#  end
 end

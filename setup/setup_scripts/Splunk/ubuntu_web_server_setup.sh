@@ -7,9 +7,6 @@ systemctl start apache2.service
 ip route add 111.0.10.0/24 via 192.168.1.5
 
 # Download and install splunk forwarder
-
-wget -O splunk.deb https://download.splunk.com/products/universalforwarder/releases/9.0.3/linux/splunkforwarder-9.0.3-dd0128b1f8cd-linux-2.6-amd64.deb
-cp splunk.deb /var/www/html/splunk.deb
 dpkg -i splunk.deb
 cat > /opt/splunkforwarder/etc/system/local/user-seed.conf <<EOM
 [user_info]

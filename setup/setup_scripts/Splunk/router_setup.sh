@@ -8,8 +8,6 @@ iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT # public to internal
 iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT # internal to public
 
 # Download and install splunk forwarder
-## sometimes it gets resolution errors
-wget -O splunk.deb https://download.splunk.com/products/universalforwarder/releases/9.0.3/linux/splunkforwarder-9.0.3-dd0128b1f8cd-linux-2.6-amd64.deb
 dpkg -i splunk.deb
 cat > /opt/splunkforwarder/etc/system/local/user-seed.conf <<EOM
 [user_info]
