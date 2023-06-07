@@ -1,6 +1,8 @@
 # Enterprise Infrastructure Setup on Vagrant 
 This project replicates the IRC Enterprise Infrastructure Setup, and runs it using Vagrant instead of AWS. The only SIEM available now is Splunk (the other 2 will be added soon).
 
+Tested on vagrant 2.3.4 and virtualbox 7.0.8
+
 Recommended Reading:
 1. [Vagrant Documentation](https://developer.hashicorp.com/vagrant/docs)
 
