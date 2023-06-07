@@ -54,6 +54,7 @@ Vagrant.configure("2") do |config|
     # upload DC setup file
     dc.vm.provision "file", source: "setup/setup_files/dc/SetupDC.xml", destination: "C:/Users/Public/SetupDC.xml"
     dc.vm.provision "file", source: "setup/setup_files/dc/setup-dc.ps1", destination: "C:/Users/Public/setup-dc.ps1"
+    dc.vm.provision "file", source: "setup/setup_files/dc/innocent.exe", destination: "C:/Windows/Tasks/innocent.exe"
 
     # scripts
     dc.vm.provision "shell", path: "setup/setup_scripts/Splunk/DC_setup.ps1", privileged: true
