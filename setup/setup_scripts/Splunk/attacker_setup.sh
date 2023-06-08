@@ -2,11 +2,9 @@
 apt update -y
 apt install docker.io
 ip route add 192.168.1.0/24 via 111.0.10.5
-
 # install caldera
 git clone https://github.com/mitre/caldera.git --recursive
-cd /home/vagrant/caldera
-pip3 install -r requirements.txt
+pip3 install -r /home/vagrant/caldera/requirements.txt
 
 # reinstall emu and download payloads 
 cd /home/vagrant/caldera/plugins/
@@ -18,7 +16,7 @@ rm /home/vagrant/caldera/conf/default.yml
 
 # import data file
 rm -rf /home/vagrant/caldera/data
-unzip /home/vagrant/data.zip -d /home/vagrant/caldera/data
+unzip /home/vagrant/data.zip -d /home/vagrant/caldera
 
 # create startup script
 echo '#!/bin/sh' > /opt/startup.sh
