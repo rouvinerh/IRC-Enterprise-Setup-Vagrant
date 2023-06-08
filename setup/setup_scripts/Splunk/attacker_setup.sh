@@ -5,6 +5,7 @@ ip route add 192.168.1.0/24 via 111.0.10.5
 # install caldera
 git clone https://github.com/mitre/caldera.git --recursive
 pip3 install -r /home/vagrant/caldera/requirements.txt
+chown -R vagrant:vagrant /home/vagrant/caldera 
 
 # reinstall emu and download payloads 
 cd /home/vagrant/caldera/plugins/
