@@ -38,3 +38,4 @@ vagrant destroy --force
 
 ## Known Issues
 1. The Windows hosts require manual logins to continue running `setup-DC.ps1` and `setup-windows.ps1` to start AD services.
+2. Caldera does not import the `data.zip` folder correctly, and it does not show updated commands as such. 
