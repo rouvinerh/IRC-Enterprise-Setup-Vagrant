@@ -1,7 +1,10 @@
 route /p add 111.0.10.0 mask 255.255.255.0 192.168.1.5
+Write-Host "Added IP Route"
 Tzutil /s "Singapore Standard Time"
+Write-Host "Set Timezone to: Singapore Standard Time"
 netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol=icmpv4:8,any dir=in action=allow
 netsh advfirewall firewall add rule name="ICMP Allow incoming V6 echo request" protocol=icmpv6:8,any dir=in action=allow
+Write-Host "Configured Firewall"
 
 auditpol /clear /y
 
@@ -35,9 +38,14 @@ auditpol /set /subcategory:"Sensitive Privilege Use" /success:enable
 auditpol /set /subcategory:"Other System Events" /failure:enable /success:enable
 auditpol /set /subcategory:"Security State Change" /success:enable
 
-cmd /c reg add "HKEY_CURRENT_USER\Control Panel\Desktop" /v ScreenSaveActive /t REG_SZ /d 0 /f
-cmd /c reg add "HKEY_CURRENT_USER\Control Panel\Desktop" /v ScreenSaveTimeOut /t REG_SZ /d 0 /f
-cmd /c reg add "HKEY_CURRENT_USER\Control Panel\Desktop" /v ScreenSaverIsSecure /t REG_SZ /d 0 /f
+Write-Host "Set Audit Policies"
+
+cmd /c powercfg /change monitor-timeout-ac 0
+cmd /c powercfg /change monitor-timeout-dc 0
+cmd /c powercfg /change standby-timeout-ac 0
+cmd /c powercfg /change standby-timeout-dc 0
+
+Write-Host "Disabled screensaver"
 
 Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit" -Name "ProcessCreationIncludeCmdLine_Enabled" -Value 1
 if(-not (Test-Path "HKLM:\Software\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging")) { New-Item "HKLM:\Software\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging" -Force }
@@ -53,9 +61,7 @@ net user Administrator "P@ssw0rd123"
 
 # Unzipping Sysmon
 Expand-Archive -Path "C:\Users\vagrant\Documents\Sysmon.zip" -DestinationPath "C:\Users\vagrant\Documents\Sysmon"
-
-# Installing Sysmon
-Start-Process -FilePath "Sysmon64.exe" -WorkingDirectory "C:\Users\vagrant\Documents\Sysmon" -ArgumentList "-accepteula","-i C:\Windows\config.xml"
+cmd /c C:\Users\vagrant\Documents\Sysmon\Sysmon64.exe -accepteula -i C:\Windows\config.xml
 
 $dest = "C:\Users\vagrant\Documents\splunkforwarder.msi"
 $RECEIVING_INDEXER="192.168.1.100:9997"
@@ -69,7 +75,7 @@ $LAUNCHSPLUNK=1
 $SERVICESTARTTYPE="auto"
 
 msiexec.exe /i $dest RECEIVING_INDEXER=$RECEIVING_INDEXER SET_ADMIN_USER=$SET_ADMIN_USER SPLUNKUSERNAME=$SPLUNKUSERNAME SPLUNKPASSWORD=$SPLUNKPASSWORD AGREETOLICENSE=$AGREETOLICENSE LAUNCHSPLUNK=1 SERVICESTARTTYPE=$SERVICESTARTTYPE /qn
-
+Write-Host "Installing Splunk...script will halt until it is running"
 # Wait for Installation to complete
 while (-not (Get-WmiObject -Class Win32_Product | Where-Object {$_.name -eq "UniversalForwarder"})) {
   Start-Sleep -Seconds 10
@@ -130,6 +136,7 @@ Restart-Service SplunkForwarder
 
 # turn off defender
 Set-MpPreference -DisableRealtimeMonitoring $true
-
+Write-Host "Disabled Real Time Protection"
 # run AD script
+Write-Host "Running AD Script...machine may restart"
 C:\Users\Public\setup-windows.ps1
