@@ -1,6 +1,6 @@
 #!/bin/sh
 apt update -y
-
+timedatectl set-timezone 'Asia/Singapore'
 # Routing Table
 echo 1 > /proc/sys/net/ipv4/ip_forward
 iptables -A FORWARD -j LOG --log-level info # Log all FORWARD chain packets, will be logged inside /var/log/kern.log

@@ -84,12 +84,14 @@ Vagrant.configure("2") do |config|
     # network 
     kali.vm.network "public_network",bridge: "enp0s3", ip: "111.0.10.10"
 
+    # upload caldera files
+    kali.vm.provision "file", source: "setup/setup_files/attacker/default.yml", destination: "/home/vagrant/default.yml"
+    kali.vm.provision "file", source: "setup/setup_files/attacker/data.zip", destination: "/home/vagrant/data.zip"
+    kali.vm.provision "file", source: "setup/setup_files/attacker/agents.yml", destination: "/home/vagrant/agents.yml"
+
     # scripts
     kali.vm.provision "shell", path: "setup/setup_scripts/Splunk/attacker_setup.sh", privileged: true
 
-    # upload caldera files
-    kali.vm.provision "file", source: "setup/setup_files/attacker/default.yml", destination: "/home/vagrant/caldera/conf/default.yml"
-    kali.vm.provision "file", source: "setup/setup_files/attacker/data.zip", destination: "/home/vagrant/data.zip"
     # virtualise
     kali.vm.provider "virtualbox" do |v, override|
       v.name = "kali"

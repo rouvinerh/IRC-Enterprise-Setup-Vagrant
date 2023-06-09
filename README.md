@@ -24,10 +24,11 @@ Do the following:
 git clone https://github.com/rouvinerh/IRC-Enterprise-Setup-Vagrant
 cd IRC-Enterprise-Setup-Vagrant
 powershell
+vagrant plugin install vagrant-vbguest
 .\download_files.ps1
 vagrant up
 ```
-It takes around 30 minutes to download all VMs and starting. 
+It takes around 10 minutes to download all VMs and starting. 
 
 ## Clean Up
 Stop and delete all machines from disk. 
@@ -37,5 +38,4 @@ vagrant destroy --force
 ```
 
 ## Known Issues
-1. The Windows hosts require manual logins to continue running `setup-DC.ps1` and `setup-windows.ps1` to start AD services.
-2. Caldera does not import the `data.zip` folder correctly, and it does not show updated commands as such. 
+1. The Windows hosts require manual logins after the first reset to continue running `setup-DC.ps1` and `setup-windows.ps1` to start AD services.

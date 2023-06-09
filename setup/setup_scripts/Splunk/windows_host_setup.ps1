@@ -1,5 +1,5 @@
 route /p add 111.0.10.0 mask 255.255.255.0 192.168.1.5
-
+Tzutil /s "Singapore Standard Time"
 netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol=icmpv4:8,any dir=in action=allow
 netsh advfirewall firewall add rule name="ICMP Allow incoming V6 echo request" protocol=icmpv6:8,any dir=in action=allow
 
@@ -34,6 +34,10 @@ auditpol /set /subcategory:"Sensitive Privilege Use" /success:enable
 
 auditpol /set /subcategory:"Other System Events" /failure:enable /success:enable
 auditpol /set /subcategory:"Security State Change" /success:enable
+
+cmd /c reg add "HKEY_CURRENT_USER\Control Panel\Desktop" /v ScreenSaveActive /t REG_SZ /d 0 /f
+cmd /c reg add "HKEY_CURRENT_USER\Control Panel\Desktop" /v ScreenSaveTimeOut /t REG_SZ /d 0 /f
+cmd /c reg add "HKEY_CURRENT_USER\Control Panel\Desktop" /v ScreenSaverIsSecure /t REG_SZ /d 0 /f
 
 Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit" -Name "ProcessCreationIncludeCmdLine_Enabled" -Value 1
 if(-not (Test-Path "HKLM:\Software\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging")) { New-Item "HKLM:\Software\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging" -Force }
@@ -92,7 +96,7 @@ checkpointInterval = 5
 current_only = 0
 disabled = 0
 start_from = oldest
-`
+
 [WinEventLog://ForwardedEvents]
 checkpointInterval = 5
 current_only = 0

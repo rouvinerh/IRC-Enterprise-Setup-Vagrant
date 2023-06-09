@@ -1,5 +1,6 @@
 #!/bin/sh
 apt update -y
+timedatectl set-timezone 'Asia/Singapore'
 apt-get install apache2 php libapache2-mod-php -y
 systemctl start apache2.service
 
