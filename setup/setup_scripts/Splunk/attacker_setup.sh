@@ -24,6 +24,8 @@ xset s off
 # create startup script
 echo '#!/bin/sh' > /opt/startup.sh
 echo 'ip route add 192.168.1.0/24 via 111.0.10.5' >> /opt/startup.sh
+echo 'xset -dpms' >> /opt/startup.sh
+echo 'xset s off' >> /opt/startup.sh
 echo 'cd /home/vagrant/caldera' >> /opt/startup.sh
 echo 'python3 server.py --insecure' >> /opt/startup.sh
 chmod +x /opt/startup.sh
