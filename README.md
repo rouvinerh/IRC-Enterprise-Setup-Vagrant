@@ -19,7 +19,7 @@ This project needs to have both Vagrant 2.3.4 and Virtualbox 7.0.8 installed to 
 At least 24GB of RAM and 100GB of disk space is required for all 6 machines to run smoothly with configurations specified in this repository. The resources used for each machine can be edited in `Vagrantfile` if needed.
 
 ## Set Up
-Do the following:
+Run the following commands to create the environment: 
 ```bash
 git clone https://github.com/rouvinerh/IRC-Enterprise-Setup-Vagrant
 cd IRC-Enterprise-Setup-Vagrant
@@ -28,10 +28,10 @@ vagrant plugin install vagrant-vbguest
 .\download_files.ps1
 vagrant up
 ```
-It takes around 10 minutes to download all VMs and starting. 
+It takes around 10 minutes to download all VMs and run properly. 
 
 ## Clean Up
-Stop and delete all machines from disk. 
+Stop and delete all machines from disk using: 
 ```bash
 vagrant halt
 vagrant destroy --force
