@@ -77,7 +77,7 @@ $LAUNCHSPLUNK=1
 $SERVICESTARTTYPE="auto"
 
 msiexec.exe /i $dest RECEIVING_INDEXER=$RECEIVING_INDEXER SET_ADMIN_USER=$SET_ADMIN_USER SPLUNKUSERNAME=$SPLUNKUSERNAME SPLUNKPASSWORD=$SPLUNKPASSWORD AGREETOLICENSE=$AGREETOLICENSE LAUNCHSPLUNK=1 SERVICESTARTTYPE=$SERVICESTARTTYPE /qn
-Write-Host "[+] Installing Splunk...script will halt until it is running"
+Write-Host "[+] Installing Splunk...script will halt until it is running."
 
 # Wait for Installation to complete
 while (-not (Get-WmiObject -Class Win32_Product | Where-Object {$_.name -eq "UniversalForwarder"})) {
@@ -142,5 +142,5 @@ Set-MpPreference -DisableRealtimeMonitoring $true
 Write-Host "[+] Disabled Real Time Protection"
 
 # run AD script
-Write-Host "[+] Running AD Script...machine may restart"
+Write-Host "[+] Running AD Script...machine will restart a few times."
 C:\Users\Public\setup-windows.ps1

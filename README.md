@@ -33,7 +33,6 @@ It takes around 10 minutes to download all VMs and run properly.
 ## Clean Up
 Stop and delete all machines from disk using: 
 ```bash
-vagrant halt
 vagrant destroy --force
 ```
 
