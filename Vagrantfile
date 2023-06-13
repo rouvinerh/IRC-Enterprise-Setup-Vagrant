@@ -41,7 +41,7 @@ Vagrant.configure("2") do |config|
       v.name = "siem"
       v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
       v.customize ['modifyvm', :id, '--draganddrop', 'bidirectional']
-      v.memory = 4096
+      v.memory = 2048
       v.cpus = 1
       v.gui = true
     end
@@ -88,6 +88,7 @@ Vagrant.configure("2") do |config|
     kali.vm.provision "file", source: "setup/setup_files/attacker/default.yml", destination: "/home/vagrant/default.yml"
     kali.vm.provision "file", source: "setup/setup_files/attacker/data.zip", destination: "/home/vagrant/data.zip"
     kali.vm.provision "file", source: "setup/setup_files/attacker/agents.yml", destination: "/home/vagrant/agents.yml"
+    kali.vm.provision "file", source: "setup/setup_files/attacker/dump.tgz", destination: "/home/vagrant/dump.tgz"
 
     # scripts
     kali.vm.provision "shell", path: "setup/setup_scripts/Splunk/attacker_setup.sh", privileged: true
@@ -97,14 +98,14 @@ Vagrant.configure("2") do |config|
       v.name = "kali"
       v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
       v.customize ['modifyvm', :id, '--draganddrop', 'bidirectional']
-      v.memory = 4096
+      v.memory = 6144
       v.cpus = 2
       v.gui = true
     end
   end 
 
 
-##   web.vm.box = "hashicorp/bionic64"
+#    web.vm.box = "hashicorp/bionic64"
 #    web.vm.hostname= "web-server"
 #
 #    # network
