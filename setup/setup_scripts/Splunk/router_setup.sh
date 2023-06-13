@@ -1,11 +1,12 @@
 #!/bin/sh
 apt update -y
 timedatectl set-timezone 'Asia/Singapore'
+
 # Routing Table
 echo 1 > /proc/sys/net/ipv4/ip_forward
-iptables -A FORWARD -j LOG --log-level info # Log all FORWARD chain packets, will be logged inside /var/log/kern.log
-iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT # public to internal
-iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT # internal to public
+iptables -A FORWARD -j LOG --log-level info
+iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT 
+iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT 
 
 # Download and install splunk forwarder
 dpkg -i splunk.deb
@@ -14,12 +15,13 @@ cat > /opt/splunkforwarder/etc/system/local/user-seed.conf <<EOM
 USERNAME=admin
 PASSWORD=password123
 EOM
-
 /opt/splunkforwarder/bin/splunk enable boot-start --accept-license --answer-yes --no-prompt
+
 # Configure splunk forwarder to forward web logs and system logs to SIEM
 /opt/splunkforwarder/bin/splunk add forward-server 192.168.1.100:9997 -auth admin:password123
 /opt/splunkforwarder/bin/splunk add monitor /var/log/syslog -index main -sourcetype linux_syslog -auth admin:password123
 /opt/splunkforwarder/bin/splunk add monitor /var/log/auth.log -index main -sourcetype linux_secure -auth admin:password123
+
 # Start Splunk Forwarder 
 /opt/splunkforwarder/bin/splunk start -auth admin:password123
 

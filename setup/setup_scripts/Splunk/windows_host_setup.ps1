@@ -1,7 +1,9 @@
 route /p add 111.0.10.0 mask 255.255.255.0 192.168.1.5
 Write-Host "[+] Added IP Route"
+
 Tzutil /s "Singapore Standard Time"
 Write-Host "[+] Set Timezone to: Singapore Standard Time"
+
 netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol=icmpv4:8,any dir=in action=allow
 netsh advfirewall firewall add rule name="ICMP Allow incoming V6 echo request" protocol=icmpv6:8,any dir=in action=allow
 Write-Host "[+] Configured Firewall"
@@ -76,6 +78,7 @@ $SERVICESTARTTYPE="auto"
 
 msiexec.exe /i $dest RECEIVING_INDEXER=$RECEIVING_INDEXER SET_ADMIN_USER=$SET_ADMIN_USER SPLUNKUSERNAME=$SPLUNKUSERNAME SPLUNKPASSWORD=$SPLUNKPASSWORD AGREETOLICENSE=$AGREETOLICENSE LAUNCHSPLUNK=1 SERVICESTARTTYPE=$SERVICESTARTTYPE /qn
 Write-Host "[+] Installing Splunk...script will halt until it is running"
+
 # Wait for Installation to complete
 while (-not (Get-WmiObject -Class Win32_Product | Where-Object {$_.name -eq "UniversalForwarder"})) {
   Start-Sleep -Seconds 10
@@ -137,6 +140,7 @@ Restart-Service SplunkForwarder
 # turn off defender
 Set-MpPreference -DisableRealtimeMonitoring $true
 Write-Host "[+] Disabled Real Time Protection"
+
 # run AD script
 Write-Host "[+] Running AD Script...machine may restart"
 C:\Users\Public\setup-windows.ps1

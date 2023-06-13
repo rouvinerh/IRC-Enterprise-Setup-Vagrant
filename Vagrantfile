@@ -14,6 +14,7 @@ Vagrant.configure("2") do |config|
     # scripts
     router.vm.provision "file", source: "setup/setup_files/splunkforwarder.deb", destination: "/home/vagrant/splunk.deb"
     router.vm.provision "shell", path: "setup/setup_scripts/Splunk/router_setup.sh", privileged: true
+
     # virtualize
     router.vm.provider "virtualbox" do |v, override|
       v.name = "router"
@@ -36,6 +37,7 @@ Vagrant.configure("2") do |config|
     # scripts 
     siem.vm.provision "file", source: "setup/setup_files/splunk.deb", destination: "/home/vagrant/splunk.deb"
     siem.vm.provision "shell", path: "setup/setup_scripts/Splunk/siem_setup.sh", privileged: true
+
     # virtualise
     siem.vm.provider "virtualbox" do |v, override|
       v.name = "siem"
@@ -62,6 +64,7 @@ Vagrant.configure("2") do |config|
     dc.vm.provision "file", source: "setup/setup_files/Sysmon.zip", destination: "C:/Users/vagrant/Documents/Sysmon.zip"
     dc.vm.provision "file", source: "setup/setup_files/sysmonconfig-export.xml", destination: "C:/Windows/config.xml"
     dc.vm.provision "file", source: "setup/setup_files/splunkforwarder.msi", destination: "C:/Users/vagrant/Documents/splunkforwarder.msi"
+
     # scripts
     dc.vm.provision "shell", path: "setup/setup_scripts/Splunk/DC_setup.ps1", privileged: true
 
@@ -106,7 +109,7 @@ Vagrant.configure("2") do |config|
     end
   end 
 
-
+#  config.vm.define "web" do |web|
 #    web.vm.box = "hashicorp/bionic64"
 #    web.vm.hostname= "web-server"
 #
@@ -116,6 +119,7 @@ Vagrant.configure("2") do |config|
 #    # scripts 
 #    web.vm.provision "file", source: "setup/setup_files/splunk.deb", destination: "/home/vagrant/splunk.deb"
 #    web.vm.provision "shell", path: "setup/setup_scripts/Splunk/ubuntu_web_server_setup.sh", privileged: true
+#
 #    # virtualise
 #    web.vm.provider "virtualbox" do |v, override|
 #      v.name = "web-server"
@@ -140,6 +144,7 @@ Vagrant.configure("2") do |config|
 #    host.vm.provision "file", source: "setup/setup_files/Sysmon.zip", destination: "C:/Users/vagrant/Documents/Sysmon.zip"
 #    host.vm.provision "file", source: "setup/setup_files/sysmonconfig-export.xml", destination: "C:/Windows/config.xml"
 #    host.vm.provision "file", source: "setup/setup_files/splunkforwarder.msi", destination: "C:/Users/vagrant/Documents/splunkforwarder.msi"
+
 #    # scripts
 #    host.vm.provision "shell", path: "setup/setup_scripts/Splunk/windows_host_setup.ps1", privileged: true, run: 'always'
 #
