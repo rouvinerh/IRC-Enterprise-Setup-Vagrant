@@ -89,6 +89,8 @@ Vagrant.configure("2") do |config|
     kali.vm.provision "file", source: "setup/setup_files/attacker/data.zip", destination: "/home/vagrant/data.zip"
     kali.vm.provision "file", source: "setup/setup_files/attacker/agents.yml", destination: "/home/vagrant/agents.yml"
     kali.vm.provision "file", source: "setup/setup_files/attacker/dump.tgz", destination: "/home/vagrant/dump.tgz"
+    kali.vm.provision "file", source: "setup/setup_files/attacker/docker-compose", destination: "/home/vagrant/docker-compose"
+    kali.vm.provision "file", source: "setup/setup_files/attacker/sra-vectr-runtime-8.8.1-ce.zip", destination: "/home/vagrant/sra-vectr-runtime-8.8.1-ce.zip" 
 
     # scripts
     kali.vm.provision "shell", path: "setup/setup_scripts/Splunk/attacker_setup.sh", privileged: true

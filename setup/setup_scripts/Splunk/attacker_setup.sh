@@ -6,14 +6,14 @@ ip route add 192.168.1.0/24 via 111.0.10.5
 # install docker compose
 apt -y install docker.io
 mkdir -p /usr/local/lib/docker/cli-plugins
-curl -SL https://github.com/docker/compose/releases/download/v2.18.1/docker-compose-linux-x86_64 -o /usr/local/lib/docker/cli-plugins/docker-compose
+mv /home/vagrant/docker-compose /usr/local/lib/docker/cli-plugins
 chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
 
 # install and put vectr backup
 mkdir -p /opt/vectr
 cd /opt/vectr
-wget https://github.com/SecurityRiskAdvisors/VECTR/releases/download/ce-8.8.1/sra-vectr-runtime-8.8.1-ce.zip 
-unzip sra-vectr-runtime-8.8.1-ce.zip
+mv /home/vagrant/sra-vectr-runtime-8.8.1-ce.zip /opt/vectr
+unzip /opt/vectr/sra-vectr-runtime-8.8.1-ce.zip
 mkdir /opt/vectr/user
 mkdir /opt/vectr/user/mongo
 tar -zxvf /home/vagrant/dump.tgz -C /opt/vectr/user/mongo

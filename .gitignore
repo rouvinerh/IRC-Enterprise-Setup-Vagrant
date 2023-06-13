@@ -11,7 +11,9 @@ crash.*.log
 *.vagrant
 
 # Ignore downloaded files
-*.zip
+Sysmon.zip
+sra-vectr-runtime-8.8.1-ce.zip
 *.msi
 *.deb
 *.xml
+docker-compose

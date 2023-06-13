@@ -18,4 +18,12 @@ $url = "https://download.splunk.com/products/splunk/releases/9.0.3/linux/splunk-
 $dest = "setup/setup_files/splunk.deb"
 Invoke-WebRequest -Uri $url -OutFile $dest
 
+$url = "https://github.com/docker/compose/releases/download/v2.18.1/docker-compose-linux-x86_64"
+$dest = "setup/setup_files/attacker/docker-compose"
+Invoke-WebRequest -Uri $url -OutFile $dest
+
+$url = "https://github.com/SecurityRiskAdvisors/VECTR/releases/download/ce-8.8.1/sra-vectr-runtime-8.8.1-ce.zip"
+$dest = "setup/setup_files/attacker/sra-vectr-runtime-8.8.1-ce.zip"
+Invoke-WebRequest -Uri $url -OutFile $dest
+
 Write-Host "Downloads complete! Run 'vagrant up' to start VMs :)"
