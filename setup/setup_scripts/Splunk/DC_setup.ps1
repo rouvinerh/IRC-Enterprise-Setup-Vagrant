@@ -1,3 +1,8 @@
+$connectionProfile = Get-NetConnectionProfile
+$profileName = $connectionProfile.Name
+Set-NetConnectionProfile -Name $profileName -NetworkCategory Private
+Write-Host "[+] Network set to private"
+
 route /p add 111.0.10.0 mask 255.255.255.0 192.168.1.5
 Write-Host "[+] Added IP Route"
 
@@ -58,10 +63,13 @@ Set-ItemProperty -Path "HKLM:\Software\Wow6432Node\Policies\Microsoft\Windows\Po
 
 # Set password of administrator account for easier RDP
 net user Administrator "P@ssw0rd123"
+Write-Host "[+] Set password for user 'Administrator' "
 
 # Starting Sysmon
+Write-Host "[ ] Starting Sysmon"
 Expand-Archive -Path "C:\Users\vagrant\Documents\Sysmon.zip" -DestinationPath "C:\Users\vagrant\Documents\Sysmon"
 cmd /c C:\Users\vagrant\Documents\Sysmon\Sysmon64.exe -accepteula -i C:\Windows\config.xml
+Write-Host "[+] Sysmon Started"
 
 $dest = "C:\Users\vagrant\Documents\splunkforwarder.msi"
 $RECEIVING_INDEXER="192.168.1.100:9997"
@@ -80,6 +88,7 @@ Write-Host "[+] Installing Splunk...script will halt until it is running."
 # Wait for Installation to complete
 while (-not (Get-WmiObject -Class Win32_Product | Where-Object {$_.name -eq "UniversalForwarder"})) {
   Start-Sleep -Seconds 10
+  Write-Host "[+] Splunk installed"
 }
 
 $conf = "C:\Program Files\SplunkUniversalForwarder\etc\apps\SplunkUniversalForwarder\local\inputs.conf"
@@ -137,7 +146,7 @@ Restart-Service SplunkForwarder
 
 # turn off defender
 Set-MpPreference -DisableRealtimeMonitoring $true
-Write-Host "[+] Disabled Real Time Protection"
+Write-Host "[+] Disabled Windows Defender Real Time Protection"
 
 # run AD script
 Write-Host "[+] Running AD Script...machine will restart a few times."
