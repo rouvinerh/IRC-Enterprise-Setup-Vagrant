@@ -1,7 +1,7 @@
-Vagrant.configure("2") do |config|
+Vagrant.configure("2") do |config| 
   if Vagrant.has_plugin?("vagrant-vbguest") then
     config.vbguest.auto_update = false
-  end
+  end  
   # router
   config.vm.define "router" do |router|
     router.vm.box = "hashicorp/bionic64"
@@ -53,6 +53,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "dc" do |dc|
     dc.vm.box = "gusztavvargadr/windows-server"
     dc.vm.hostname = "dc"
+    dc.vm.communicator = "winssh"
 
     # network
     dc.vm.network "private_network", ip: "192.168.1.150"
@@ -134,7 +135,7 @@ Vagrant.configure("2") do |config|
 #  config.vm.define "host" do |host|
 #    host.vm.box = "gusztavvargadr/windows-server"
 #    host.vm.hostname= "host"
-#
+#    host.vm.communicator = "winssh"
 #    # network 
 #    host.vm.network "private_network", ip: "192.168.1.151"
 #
