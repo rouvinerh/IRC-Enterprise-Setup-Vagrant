@@ -47,6 +47,11 @@ else {
         }
     }
     
+    $connectionProfile = Get-NetConnectionProfile
+    $profileName = $connectionProfile.Name
+    Set-NetConnectionProfile -Name $profileName -NetworkCategory Private
+    Write-Host "[+] Network set to private"
+    
     #We need to add the new domain user and configure things under their account, so we start by checking if that account exists
     $userobj = $(try {Get-ADUser "csaAdmin"} catch {$Null});
     if ($userobj -eq $Null) {
