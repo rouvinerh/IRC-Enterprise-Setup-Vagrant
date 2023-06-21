@@ -88,8 +88,9 @@ Write-Host "[+] Installing Splunk...script will halt until it is running."
 # Wait for Installation to complete
 while (-not (Get-WmiObject -Class Win32_Product | Where-Object {$_.name -eq "UniversalForwarder"})) {
   Start-Sleep -Seconds 10
-  Write-Host "[+] Splunk installed"
 }
+
+Write-Host "[+] Splunk installed"
 
 $conf = "C:\Program Files\SplunkUniversalForwarder\etc\apps\SplunkUniversalForwarder\local\inputs.conf"
 
@@ -147,6 +148,14 @@ Restart-Service SplunkForwarder
 # turn off defender
 Set-MpPreference -DisableRealtimeMonitoring $true
 Write-Host "[+] Disabled Windows Defender Real Time Protection"
+
+# disable Ctrl+Alt+Del
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "DisableCAD" -Value 1 -Type DWORD
+
+# fix autologon
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name "AutoLogonCount" -Type DWord -Value "9999"
+Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name "AutoLogonSID"
+Write-Host "[+] Set AutoLogon"
 
 # run AD script
 Write-Host "[+] Running AD Script...machine will restart a few times."
