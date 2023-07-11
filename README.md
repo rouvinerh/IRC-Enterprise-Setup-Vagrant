@@ -35,6 +35,3 @@ Stop and delete all machines from disk using:
 ```bash
 vagrant destroy --force
 ```
-
-## Known Issues
-1. The Windows hosts require manual logins after the first reset to continue running `setup-DC.ps1` and `setup-windows.ps1` to start AD services.
