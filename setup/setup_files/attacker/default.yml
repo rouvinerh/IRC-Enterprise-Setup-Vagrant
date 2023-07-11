@@ -29,16 +29,13 @@ exfil_dir: /tmp/caldera
 host: 0.0.0.0
 plugins:
 - access
-- atomic
 - compass
 - debrief
-- emu
 - fieldmanual
 - manx
 - response
 - sandcat
 - stockpile
-- training
 port: 8888
 reports_dir: /tmp
 auth.login.handler.module: default
