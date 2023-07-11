@@ -23,7 +23,9 @@ docker compose up -d
 
 # install caldera
 cd /home/vagrant
-git clone https://github.com/mitre/caldera.git --recursive
+git clone https://github.com/mitre/caldera.git --recursive --branch 4.1.0
+rm /home/vagrant/caldera/requirements.txt
+mv /home/vagrant/requirements.txt /home/vagrant/caldera/requirements.txt
 pip3 install -r /home/vagrant/caldera/requirements.txt
 chown -R vagrant:vagrant /home/vagrant/caldera 
 
@@ -33,10 +35,20 @@ rm /home/vagrant/caldera/conf/agents.yml
 mv /home/vagrant/default.yml /home/vagrant/caldera/conf/default.yml
 mv /home/vagrant/agents.yml /home/vagrant/caldera/conf/agents.yml
 
+
 # import data file
 rm -rf /home/vagrant/caldera/data
 unzip /home/vagrant/data.zip -d /home/vagrant/caldera
 rm /home/vagrant/data.zip
+
+# unencrypt payloads
+python3 /home/vagrant/encrypt.py /home/vagrant/caldera/data/payloads/mimikatz.enc /home/vagrant/caldera/data/payloads/mimikatz.exe dec
+python3 /home/vagrant/encrypt.py /home/vagrant/caldera/data/payloads/procdump.enc /home/vagrant/caldera/data/payloads/procdump.exe dec
+python3 /home/vagrant/encrypt.py /home/vagrant/caldera/data/payloads/innocent.enc /home/vagrant/caldera/data/payloads/innocent.exe dec
+rm /home/vagrant/encrypt.py
+rm /home/vagrant/caldera/data/payloads/*.enc
+
+# turn screensaver off
 xset -dpms
 xset s off
 
@@ -69,3 +81,4 @@ EOM
 systemctl daemon-reload
 systemctl enable start.service
 systemctl start start.service
+echo "[+] It takes about 2 minutes for Vectr and Caldera to start!" 
