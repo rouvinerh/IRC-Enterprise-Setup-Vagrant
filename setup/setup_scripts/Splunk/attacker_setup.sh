@@ -19,7 +19,6 @@ mkdir /opt/vectr/user/mongo
 tar -zxvf /home/vagrant/dump.tgz -C /opt/vectr/user/mongo
 rm /home/vagrant/dump.tgz
 chown -R vagrant:vagrant /opt/vectr
-docker compose up -d
 
 # install caldera
 cd /home/vagrant
