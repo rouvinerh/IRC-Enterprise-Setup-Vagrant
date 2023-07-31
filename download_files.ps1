@@ -1,3 +1,21 @@
+powershell -ep bypass
+Write-Host "Disabling sleep and timeout"
+cmd /c powercfg /change monitor-timeout-ac 0
+cmd /c powercfg /change monitor-timeout-dc 0
+cmd /c powercfg /change standby-timeout-ac 0
+cmd /c powercfg /change standby-timeout-dc 0
+
+Write-Host "Increasing virtual memory..."
+$pagefile = Get-WmiObject Win32_ComputerSystem -EnableAllPrivileges
+$pagefile.AutomaticManagedPagefile = $false
+$pagefile.put() | Out-Null
+$pagefileset = Get-WmiObject Win32_pagefilesetting
+$pagefileset.InitialSize = 24576
+$pagefileset.MaximumSize = 49152
+$pagefileset.Put() | Out-Null
+Gwmi win32_Pagefilesetting | Select Name, InitialSize, MaximumSize
+
+
 $ProgressPreference = 'SilentlyContinue'
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://vcredist.com/install.ps1'))
@@ -40,4 +58,6 @@ $dest = "setup/setup_files/attacker/sra-vectr-runtime-8.8.1-ce.zip"
 Invoke-WebRequest -Uri $url -OutFile $dest
 Write-Host "File downloaded from $url and saved to $dest"
 
-Write-Host "Downloads complete! Run 'vagrant up' to start VMs :)"
+Write-Host "Downloads complete! Restarting computer for changes to take place now."
+Write-Host "Run vagrant up within an administrator prompt once restart is complete."
+Restart-Computer -Force

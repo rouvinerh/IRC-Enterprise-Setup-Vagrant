@@ -74,7 +74,7 @@ Vagrant.configure("2") do |config|
       v.name = "DC"
       v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
       v.customize ['modifyvm', :id, '--draganddrop', 'bidirectional']
-      v.memory = 6144
+      v.memory = 8192
       v.cpus = 2
       v.gui = true
     end 
@@ -106,7 +106,7 @@ Vagrant.configure("2") do |config|
       v.name = "kali"
       v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
       v.customize ['modifyvm', :id, '--draganddrop', 'bidirectional']
-      v.memory = 4096
+      v.memory = 6192
       v.cpus = 2
       v.gui = true
     end
