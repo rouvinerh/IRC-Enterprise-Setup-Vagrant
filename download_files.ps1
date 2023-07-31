@@ -1,4 +1,9 @@
 $ProgressPreference = 'SilentlyContinue'
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+choco install vagrant --version=2.3.4 -y
+
+$ProgressPreference = 'SilentlyContinue'
 $url = "https://raw.githubusercontent.com/SwiftOnSecurity/sysmon-config/master/sysmonconfig-export.xml"
 $dest = "setup/setup_files/sysmonconfig-export.xml"
 Invoke-WebRequest -Uri $url -OutFile $dest
