@@ -34,7 +34,6 @@ rm /home/vagrant/caldera/conf/agents.yml
 mv /home/vagrant/default.yml /home/vagrant/caldera/conf/default.yml
 mv /home/vagrant/agents.yml /home/vagrant/caldera/conf/agents.yml
 
-
 # import data file
 rm -rf /home/vagrant/caldera/data
 unzip /home/vagrant/data.zip -d /home/vagrant/caldera
