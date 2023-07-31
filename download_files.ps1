@@ -1,4 +1,3 @@
-powershell -ep bypass
 Write-Host "Disabling sleep and timeout"
 cmd /c powercfg /change monitor-timeout-ac 0
 cmd /c powercfg /change monitor-timeout-dc 0
