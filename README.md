@@ -23,8 +23,9 @@ Run the following commands to create the environment:
 ```bash
 git clone https://github.com/rouvinerh/IRC-Enterprise-Setup-Vagrant
 cd IRC-Enterprise-Setup-Vagrant
-powershell
-vagrant plugin install vagrant-vbguest
+powershell 
+# optional to set virtual memory and sleep settings
+.\host_settings.ps1
 .\download_files.ps1
 ## computer will restart after running the script
 ## when restart is complete, run this in an administrator prompt
