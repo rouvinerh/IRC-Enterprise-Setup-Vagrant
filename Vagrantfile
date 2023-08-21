@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
     
     # network
     router.vm.network "private_network", ip: "192.168.1.5"
-    router.vm.network "public_network",bridge: "enp0s3", ip: "111.0.10.5"
+    router.vm.network "private_network", ip: "111.0.10.5"
 
     # scripts
     router.vm.provision "file", source: "setup/setup_files/splunkforwarder.deb", destination: "/home/vagrant/splunk.deb"
@@ -86,7 +86,7 @@ Vagrant.configure("2") do |config|
     kali.vm.hostname = "attacker"
 
     # network 
-    kali.vm.network "public_network",bridge: "enp0s3", ip: "111.0.10.10"
+    kali.vm.network "private_network", ip: "111.0.10.10"
 
     # upload caldera files
     kali.vm.provision "file", source: "setup/setup_files/attacker/default.yml", destination: "/home/vagrant/default.yml"

@@ -5,8 +5,8 @@ timedatectl set-timezone 'Asia/Singapore'
 # Routing Table
 echo 1 > /proc/sys/net/ipv4/ip_forward
 iptables -A FORWARD -j LOG --log-level info
-iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT 
-iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT 
+iptables -A FORWARD -i eth1 -o eth2 -j ACCEPT 
+iptables -A FORWARD -i eth2 -o eth1 -j ACCEPT
 
 # Download and install splunk forwarder
 dpkg -i splunk.deb
@@ -29,8 +29,8 @@ EOM
 echo '#!/bin/sh' > /opt/startup.sh
 echo 'echo 1 > /proc/sys/net/ipv4/ip_forward' >> /opt/startup.sh
 echo 'iptables -A FORWARD -j LOG --log-level info' >> /opt/startup.sh
-echo 'iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT' >> /opt/startup.sh
-echo 'iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT' >> /opt/startup.sh
+echo 'iptables -A FORWARD -i eth2 -o eth1 -j ACCEPT' >> /opt/startup.sh
+echo 'iptables -A FORWARD -i eth1 -o eth2 -j ACCEPT' >> /opt/startup.sh
 echo '/opt/splunkforwarder/bin/splunk add forward-server 192.168.1.100:9997 -auth admin:password123' >> /opt/startup.sh
 echo '/opt/splunkforwarder/bin/splunk add monitor /var/log/syslog -index main -sourcetype linux_syslog -auth admin:password123' >> /opt/startup.sh
 echo '/opt/splunkforwarder/bin/splunk add monitor /var/log/auth.log -index main -sourcetype linux_secure -auth admin:password123' >> /opt/startup.sh
