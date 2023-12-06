@@ -36,8 +36,8 @@ elseif ((Get-WmiObject -Namespace root\cimv2 -Class Win32_ComputerSystem).Domain
 
     # Join the AD as WEBSERVER01
     $joinCred = New-Object pscredential -ArgumentList ([pscustomobject]@{
-        UserName = 'vagrant'
-        Password = (ConvertTo-SecureString -String 'vagrant!' -AsPlainText -Force)[0]
+        UserName = $null
+        Password = (ConvertTo-SecureString -String 'ws1Passw0rd!' -AsPlainText -Force)[0]
       })
     
     # DC needs to restart, so joining the domain might fail
