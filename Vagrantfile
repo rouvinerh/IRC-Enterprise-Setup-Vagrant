@@ -8,8 +8,8 @@ Vagrant.configure("2") do |config|
     router.vm.hostname = "router"
     
     # network
-    router.vm.network "private_network", ip: "192.168.1.5"
-    router.vm.network "private_network", ip: "111.0.10.5"
+    router.vm.network "private_network", ip: "192.168.1.5", virtualbox__intnet: "internal_nw"
+    router.vm.network "private_network", ip: "111.0.10.5", virtualbox__intnet: "public_nw"
 
     # scripts
     router.vm.provision "file", source: "setup/setup_files/splunkforwarder.deb", destination: "/home/vagrant/splunk.deb"
@@ -32,7 +32,7 @@ Vagrant.configure("2") do |config|
     siem.vm.hostname = "siem"
 
     # network
-    siem.vm.network "private_network", ip: "192.168.1.100"
+    siem.vm.network "private_network", ip: "192.168.1.100", virtualbox__intnet: "internal_nw"
 
     # scripts 
     siem.vm.provision "file", source: "setup/setup_files/splunk.deb", destination: "/home/vagrant/splunk.deb"
@@ -56,7 +56,7 @@ Vagrant.configure("2") do |config|
     dc.vm.communicator = "winssh"
 
     # network
-    dc.vm.network "private_network", ip: "192.168.1.150"
+    dc.vm.network "private_network", ip: "192.168.1.150", virtualbox__intnet: "internal_nw"
 
     # upload DC setup file
     dc.vm.provision "file", source: "setup/setup_files/dc/SetupDC.xml", destination: "C:/Users/Public/SetupDC.xml"
@@ -86,7 +86,7 @@ Vagrant.configure("2") do |config|
     kali.vm.hostname = "attacker"
 
     # network 
-    kali.vm.network "private_network", ip: "111.0.10.10"
+    kali.vm.network "private_network", ip: "111.0.10.10", virtualbox__intnet: "public_nw"
 
     # upload caldera files
     kali.vm.provision "file", source: "setup/setup_files/attacker/default.yml", destination: "/home/vagrant/default.yml"
@@ -117,7 +117,7 @@ Vagrant.configure("2") do |config|
 #    web.vm.hostname= "web-server"
 #
 #    # network
-#    web.vm.network "private_network", ip: "192.168.1.200"
+#    web.vm.network "private_network", ip: "192.168.1.200", virtualbox__intnet: "internal_nw"
 #
 #    # scripts 
 #    web.vm.provision "file", source: "setup/setup_files/splunk.deb", destination: "/home/vagrant/splunk.deb"
@@ -139,7 +139,7 @@ Vagrant.configure("2") do |config|
 #    host.vm.hostname= "host"
 #    host.vm.communicator = "winssh"
 #    # network 
-#    host.vm.network "private_network", ip: "192.168.1.151"
+#    host.vm.network "private_network", ip: "192.168.1.151", virtualbox__intnet: "internal_nw"
 #
 #    # upload host setup file
 #    host.vm.provision "file", source: "setup/setup_files/host/SetupWindows.xml", destination: "C:/Users/Public/SetupWindows.xml"

@@ -1,7 +1,16 @@
 #!/bin/sh
 apt update -y
 timedatectl set-timezone 'Asia/Singapore'
-ip route add 192.168.1.0/24 via 111.0.10.5
+
+# turn screensaver off
+xset -dpms
+xset s off
+
+# create static route
+echo '#!/bin/sh' > /etc/network/if-up.d/static-route
+echo '/sbin/ip route add 192.168.11.0/24 via 111.0.10.5' >> /etc/network/if-up.d/static-route
+chmod +x /etc/network/if-up.d/static-route
+systemctl restart networking
 
 # install docker compose
 apt -y install docker.io
@@ -46,13 +55,9 @@ python3 /home/vagrant/encrypt.py /home/vagrant/caldera/data/payloads/innocent.en
 rm /home/vagrant/encrypt.py
 rm /home/vagrant/caldera/data/payloads/*.enc
 
-# turn screensaver off
-xset -dpms
-xset s off
-
 # create startup script
 echo '#!/bin/sh' > /opt/startup.sh
-echo 'ip route add 192.168.1.0/24 via 111.0.10.5' >> /opt/startup.sh
+# echo 'ip route add 192.168.1.0/24 via 111.0.10.5' >> /opt/startup.sh
 echo 'xset -dpms' >> /opt/startup.sh
 echo 'xset s off' >> /opt/startup.sh
 echo 'cd /opt/vectr' >> /opt/startup.sh
