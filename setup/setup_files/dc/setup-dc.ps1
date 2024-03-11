@@ -1,7 +1,7 @@
 # Adapted from https://github.com/CSAdev-engenuity/AdversaryEmulation/blob/main/vm_setup_scripts/windows_server/setup-dc.ps1
 
 #Step 1
-if ($env:COMPUTERNAME -ne "CSA-DC") {
+if ($env:COMPUTERNAME -ne "dc") {
     $password = "vagrant"
     Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name 'DefaultUserName' -Type String -Value "vagrant";
     Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name 'DefaultPassword' -Type String -Value $password;
@@ -18,7 +18,7 @@ if ($env:COMPUTERNAME -ne "CSA-DC") {
     # powershell -ep bypass C:\Users\Public\install-tools.ps1;
 
     Start-Sleep -Seconds 3;
-    Rename-Computer -NewName "CSA-DC" -Restart
+    Rename-Computer -NewName "dc" -Restart
 } 
 #Step 2
 elseif ((Get-WmiObject -Namespace root\cimv2 -Class Win32_ComputerSystem).Domain -ne "CSA.local") {

@@ -28,7 +28,7 @@ elseif ((Get-WmiObject -Namespace root\cimv2 -Class Win32_ComputerSystem).Domain
     Set-DnsClientServerAddress -InterfaceAlias "Ethernet 2" -ServerAddresses ("192.168.111.150") # Set DC's IP as a DNS server 
     
     # Test if DC is successfully set up, if not sleep for 60 seconds
-    while (-not (Test-Connection CSA-DC.CSA.local -Count 1 -Quiet)) {
+    while (-not (Test-Connection dc.CSA.local -Count 1 -Quiet)) {
         Write-Host "[i] Waiting for DC to be set up..."
         Start-Sleep -Seconds 60;
     }
