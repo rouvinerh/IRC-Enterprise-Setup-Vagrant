@@ -25,7 +25,7 @@ elseif ((Get-WmiObject -Namespace root\cimv2 -Class Win32_ComputerSystem).Domain
     Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name 'DefaultDomainName' -Type String -Value "CSA";
 
     # Set DC as DNS Server
-    Set-DnsClientServerAddress -InterfaceAlias "Ethernet 2" -ServerAddresses ("192.168.1.150") # Set DC's IP as a DNS server 
+    Set-DnsClientServerAddress -InterfaceAlias "Ethernet 2" -ServerAddresses ("192.168.111.150") # Set DC's IP as a DNS server 
     
     # Test if DC is successfully set up, if not sleep for 60 seconds
     while (-not (Test-Connection CSA-DC.CSA.local -Count 1 -Quiet)) {

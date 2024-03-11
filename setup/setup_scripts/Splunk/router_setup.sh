@@ -18,7 +18,7 @@ EOM
 /opt/splunkforwarder/bin/splunk enable boot-start --accept-license --answer-yes --no-prompt
 
 # Configure splunk forwarder to forward web logs and system logs to SIEM
-/opt/splunkforwarder/bin/splunk add forward-server 192.168.1.100:9997 -auth admin:password123
+/opt/splunkforwarder/bin/splunk add forward-server 192.168.111.100:9997 -auth admin:password123
 /opt/splunkforwarder/bin/splunk add monitor /var/log/syslog -index main -sourcetype linux_syslog -auth admin:password123
 /opt/splunkforwarder/bin/splunk add monitor /var/log/auth.log -index main -sourcetype linux_secure -auth admin:password123
 
@@ -31,7 +31,7 @@ echo 'echo 1 > /proc/sys/net/ipv4/ip_forward' >> /opt/startup.sh
 echo 'iptables -A FORWARD -j LOG --log-level info' >> /opt/startup.sh
 echo 'iptables -A FORWARD -i eth2 -o eth1 -j ACCEPT' >> /opt/startup.sh
 echo 'iptables -A FORWARD -i eth1 -o eth2 -j ACCEPT' >> /opt/startup.sh
-echo '/opt/splunkforwarder/bin/splunk add forward-server 192.168.1.100:9997 -auth admin:password123' >> /opt/startup.sh
+echo '/opt/splunkforwarder/bin/splunk add forward-server 192.168.111.100:9997 -auth admin:password123' >> /opt/startup.sh
 echo '/opt/splunkforwarder/bin/splunk add monitor /var/log/syslog -index main -sourcetype linux_syslog -auth admin:password123' >> /opt/startup.sh
 echo '/opt/splunkforwarder/bin/splunk add monitor /var/log/auth.log -index main -sourcetype linux_secure -auth admin:password123' >> /opt/startup.sh
 echo '/opt/splunkforwarder/bin/splunk start -auth admin:password123' >> /opt/startup.sh

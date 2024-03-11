@@ -6,7 +6,7 @@ There will be 2 subnets in this configuration.
 | Subnet | CIDR Range |
 | ------ | ---------- |
 | External | `111.0.10.0/24` |
-| Internal | `192.168.1.0/24 `|
+| Internal | `192.168.111.0/24 `|
 
 ## Endpoints 
 
@@ -14,11 +14,11 @@ There will be 2 subnets in this configuration.
 | ------ | -------- | ---------- | ------- |
 | External | Attacker | `111.0.10.10` | Attacker machine |
 | External | Router | `111.0.10.5` | External Interface of Router |
-| Internal | Router | `192.168.1.5` | Internal Interface of Router |
-| Internal | Ubuntu Web Server | `192.168.1.200` | Hosts a public vulnerable web application |
-| Internal | Windows Host | `192.168.1.151` | Hosts an internal vulnerable web application, Part of Active Directory |
-| Internal | Domain Controller | `192.168.1.150` | Domain Controller for the Active Directory |
-| Internal | SIEM | `192.168.1.100` | SIEM for the internal network |
+| Internal | Router | `192.168.111.5` | Internal Interface of Router |
+| Internal | Ubuntu Web Server | `192.168.111.200` | Hosts a public vulnerable web application |
+| Internal | Windows Host | `192.168.111.151` | Hosts an internal vulnerable web application, Part of Active Directory |
+| Internal | Domain Controller | `192.168.111.150` | Domain Controller for the Active Directory |
+| Internal | SIEM | `192.168.111.100` | SIEM for the internal network |
 
 ## Routing Configuration
 Add static routes and configuration to allow packets to be forwarded between internal and external subnet.
@@ -28,8 +28,8 @@ Forward all internal destination packets to router's external interface
 #### Routing Table
 | CIDR | Route To |
 | ---- | -------- |
-| 192.168.1.0/24 | `111.0.10.5` |
-`ip route add 192.168.1.0/24 via 111.0.0.5`
+| 192.168.111.0/24 | `111.0.10.5` |
+`ip route add 192.168.111.0/24 via 111.0.0.5`
 
 ### Router 
 * Configure router to forward packets from one interface to another
@@ -44,9 +44,9 @@ Forward all external destination packets to router's internal interface
 #### Routing Table
 | CIDR | Route To |
 | ---- | -------- |
-| 111.0.0.0/24 | `192.168.1.5` |
-* Bash `ip route add 10.0.0.0/8 via 192.168.1.5`
-* PowerShell `route /p add 111.0.0.0 mask 255.0.0.0 192.168.1.5 [if 0x2]`
+| 111.0.0.0/24 | `192.168.111.5` |
+* Bash `ip route add 10.0.0.0/8 via 192.168.111.5`
+* PowerShell `route /p add 111.0.0.0 mask 255.0.0.0 192.168.111.5 [if 0x2]`
 
 ## Firewall Configuration 
 `TODO`
@@ -58,42 +58,42 @@ Virtual machines used can be found [here](https://app.vagrantup.com/boxes/).
 ## External Subnet 
 ### Attacker (`111.0.10.10`)
 The attacker machine is a Kali 2023 machine (Box: `kalilinux/rolling`).
-1. Add static route to route all traffic to `192.168.1.0/24` (internal subnet) to `111.0.10.5` (router)
+1. Add static route to route all traffic to `192.168.111.0/24` (internal subnet) to `111.0.10.5` (router)
 
 ### Router (`111.0.10.5`)
 The router is a Ubuntu 18.04 LTS 64-bit box. (Box: `hashicorp/bionic64`).
 1. Set up forwarding and logging using `iptables` from one interface to another
-2. Download FileBeat debian package from `192.168.1.200` (Ubuntu Web Server) and install FileBeat
+2. Download FileBeat debian package from `192.168.111.200` (Ubuntu Web Server) and install FileBeat
 3. Update Filebeat.yml using `cat`
 4. Start Filebeat service
 
 ## Internal Subnet
-### Router (`192.168.1.5`)
+### Router (`192.168.111.5`)
 The router is a Ubuntu 18.04 LTS 64-bit box. (Box: `hashicorp/bionic64`).
 1. Set up forwarding and logging using `iptables` from one interface to another
-2. Download FileBeat debian package from `192.168.1.200` (Ubuntu Web Server) and install FileBeat
+2. Download FileBeat debian package from `192.168.111.200` (Ubuntu Web Server) and install FileBeat
 3. Update Filebeat.yml using `cat`
 4. Start Filebeat service
 
-### Ubuntu Web Server (`192.168.1.200`)
+### Ubuntu Web Server (`192.168.111.200`)
 The router is a Ubuntu 18.04 LTS 64-bit box. (Box: `hashicorp/bionic64`). 
 1. Update apt packages, install and start apache2
-2. Add static route to route all traffic to `111.0.10.0/24` (external subnet) to `192.168.1.5` (router)
+2. Add static route to route all traffic to `111.0.10.0/24` (external subnet) to `192.168.111.5` (router)
 3. Download Filebeat package from `artifacts.elastic.co` to `/var/www/html`
 4. Install Filebeat
 5. Update Filebeat.yml using `cat`
 6. Start Filebeat service
 
-### SIEM (`192.168.1.100`)
+### SIEM (`192.168.111.100`)
 The SIEM is a Ubuntu 18.04 LTS 64-bit box. (Box: `hashicorp/bionic64`).
-1. Add static route to route all traffic to `111.0.10.0/24` (external subnet) to `192.168.1.5` (router)
+1. Add static route to route all traffic to `111.0.10.0/24` (external subnet) to `192.168.111.5` (router)
 2. Install docker and docker-compose
 3. Update elasticsearch.yml and docker-compose using `cat`
 4. Use docker-compose to start ELK stack
 
-### DC (`192.168.1.150`)
+### DC (`192.168.111.150`)
 The DC is a Windows Server 2022 Standard machine (Box: `gusztavvargadr/windows-server`).
-1. Add static route to route all traffic to `111.0.10.0/24` (external subnet) to `192.168.1.5` (router)
+1. Add static route to route all traffic to `111.0.10.0/24` (external subnet) to `192.168.111.5` (router)
 2. Add firewall rule 
 3. Add audit policies
 4. Add registry keys to enable powershell logging 
@@ -103,9 +103,9 @@ The DC is a Windows Server 2022 Standard machine (Box: `gusztavvargadr/windows-s
 8. Start Winlogbeat service
 9. Set up DC
 
-### Windows Host (`192.168.1.151`)
+### Windows Host (`192.168.111.151`)
 The Windows Host is a Windows Server 2022 Standard machine (Box: `gusztavvargadr/windows-server`).
-1. Add static route to route all traffic to `111.0.10.0/24` (external subnet) to `192.168.1.5` (router)
+1. Add static route to route all traffic to `111.0.10.0/24` (external subnet) to `192.168.111.5` (router)
 2. Add firewall rule 
 3. Add audit policies
 4. Add registry keys to enable powershell logging 
@@ -117,12 +117,12 @@ The Windows Host is a Windows Server 2022 Standard machine (Box: `gusztavvargadr
 
 # FileBeat Configuration 
 
-### Router (`111.0.10.5`/`192.168.1.5`)
+### Router (`111.0.10.5`/`192.168.111.5`)
 Enabled the following filebeat modules:
 1. `iptables`
 2. `system`
 
-### Router (`192.168.1.200`)
+### Router (`192.168.111.200`)
 Enabled the following filebeat modules:
 1. `apache`
 2. `system`

@@ -57,7 +57,7 @@ rm /home/vagrant/caldera/data/payloads/*.enc
 
 # create startup script
 echo '#!/bin/sh' > /opt/startup.sh
-# echo 'ip route add 192.168.1.0/24 via 111.0.10.5' >> /opt/startup.sh
+# echo 'ip route add 192.168.111.0/24 via 111.0.10.5' >> /opt/startup.sh
 echo 'xset -dpms' >> /opt/startup.sh
 echo 'xset s off' >> /opt/startup.sh
 echo 'cd /opt/vectr' >> /opt/startup.sh

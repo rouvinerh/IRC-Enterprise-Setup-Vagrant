@@ -114,7 +114,7 @@ setup.kibana:
   # Scheme and port can be left out and will be set to the default (http and 5601)
   # In case you specify and additional path, the scheme is required: http://localhost:5601/path
   # IPv6 addresses should always be defined as: https://[2001:db8::1]:5601
-  host: "192.168.1.100:5601"
+  host: "192.168.111.100:5601"
   username: "elastic"
   password: "changeme"
 
@@ -143,8 +143,8 @@ setup.kibana:
 # ---------------------------- Elasticsearch Output ----------------------------
 output.elasticsearch:
   # Array of hosts to connect to.
-  # [Customized] changed to 192.168.1.100
-  hosts: ["192.168.1.100:9200"]
+  # [Customized] changed to 192.168.111.100
+  hosts: ["192.168.111.100:9200"]
 
 
   # Protocol - either \`http\` (default) or \`https\`.
@@ -158,8 +158,8 @@ output.elasticsearch:
 # ------------------------------ Logstash Output -------------------------------
 #output.logstash:
   # The Logstash hosts
-  # [CUSTOMIZED] changed to 192.168.1.100 and added index: filebeat 
-  #hosts: ["192.168.1.100:5044"]
+  # [CUSTOMIZED] changed to 192.168.111.100 and added index: filebeat 
+  #hosts: ["192.168.111.100:5044"]
   #index: filebeat 
 
   # Optional SSL. By default is off.

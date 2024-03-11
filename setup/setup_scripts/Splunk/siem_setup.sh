@@ -3,7 +3,7 @@ apt update -y
 timedatectl set-timezone 'Asia/Singapore'
 
 # Set up Routing Table
-ip route add 111.0.10.0/24 via 192.168.1.5
+ip route add 111.0.10.0/24 via 192.168.111.5
 
 # Download Splunk Enterprise
 dpkg -i splunk.deb
@@ -22,7 +22,7 @@ service splunk start
 
 # create startup script
 echo '#!/bin/sh' > /opt/startup.sh
-echo 'ip route add 111.0.10.0/24 via 192.168.1.5' >> /opt/startup.sh
+echo 'ip route add 111.0.10.0/24 via 192.168.111.5' >> /opt/startup.sh
 echo '/opt/splunk/bin/splunk enable boot-start --accept-license --answer-yes --no-prompt' >> /opt/startup.sh
 echo '/opt/splunk/bin/splunk enable listen 9997 -auth admin:password123' >> /opt/startup.sh
 echo 'service splunk start' >> /opt/startup.sh

@@ -1,4 +1,4 @@
-route /p add 111.0.10.0 mask 255.255.255.0 192.168.1.5
+route /p add 111.0.10.0 mask 255.255.255.0 192.168.111.5
 Write-Host "[+] Added IP Route"
 
 Tzutil /s "Singapore Standard Time"
@@ -66,7 +66,7 @@ Expand-Archive -Path "C:\Users\vagrant\Documents\Sysmon.zip" -DestinationPath "C
 cmd /c C:\Users\vagrant\Documents\Sysmon\Sysmon64.exe -accepteula -i C:\Windows\config.xml
 
 $dest = "C:\Users\vagrant\Documents\splunkforwarder.msi"
-$RECEIVING_INDEXER="192.168.1.100:9997"
+$RECEIVING_INDEXER="192.168.111.100:9997"
 $LOGON_USERNAME="admin"
 $LOGON_PASSWORD="password123"
 $SET_ADMIN_USER=1
