@@ -8,7 +8,7 @@ xset s off
 
 # create static route
 echo '#!/bin/sh' > /etc/network/if-up.d/static-route
-echo '/sbin/ip route add 192.168.11.0/24 via 111.0.10.5' >> /etc/network/if-up.d/static-route
+echo '/sbin/ip route add 192.168.111.0/24 via 111.0.10.5' >> /etc/network/if-up.d/static-route
 chmod +x /etc/network/if-up.d/static-route
 systemctl restart networking
 
