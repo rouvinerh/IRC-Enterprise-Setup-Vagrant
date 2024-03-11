@@ -1,7 +1,7 @@
 # Adapted from https://github.com/CSAdev-engenuity/AdversaryEmulation/blob/main/vm_setup_scripts/windows_server/setup-dc.ps1
 
 # Step 1
-if ($env:COMPUTERNAME -ne "WEBSERVER01") {
+if ($env:COMPUTERNAME -ne "host") {
     $password = "P@ssw0rd123"
     Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name 'DefaultUserName' -Type String -Value "Administrator";
     Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name 'DefaultPassword' -Type String -Value $password;
@@ -17,7 +17,7 @@ if ($env:COMPUTERNAME -ne "WEBSERVER01") {
     # powershell -ep bypass C:\Users\Public\install-tools.ps1;
 
     Start-Sleep -Seconds 3;
-    Rename-Computer -NewName "WEBSERVER01" -Restart
+    Rename-Computer -NewName "host" -Restart
 } 
 # Step 2
 elseif ((Get-WmiObject -Namespace root\cimv2 -Class Win32_ComputerSystem).Domain -ne "CSA.local") {
@@ -34,7 +34,7 @@ elseif ((Get-WmiObject -Namespace root\cimv2 -Class Win32_ComputerSystem).Domain
     }
     Write-Host "[i] DC Set up done!"
 
-    # Join the AD as WEBSERVER01
+    # Join the AD as host
     $joinCred = New-Object pscredential -ArgumentList ([pscustomobject]@{
         UserName = $null
         Password = (ConvertTo-SecureString -String 'ws1Passw0rd!' -AsPlainText -Force)[0]

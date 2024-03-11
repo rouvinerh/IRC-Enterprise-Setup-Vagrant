@@ -63,8 +63,8 @@ else {
         New-ADComputer -Name "WKST01" -AccountPassword (ConvertTo-SecureString 'wk1Passw0rd!' -AsPlainText -Force)
         New-ADComputer -Name "WKST02" -AccountPassword (ConvertTo-SecureString 'wk2Passw0rd!' -AsPlainText -Force)
         New-ADComputer -Name "WKST03" -AccountPassword (ConvertTo-SecureString 'wk3Passw0rd!' -AsPlainText -Force)
-        New-ADComputer -Name "WEBSERVER01" -AccountPassword (ConvertTo-SecureString 'ws1Passw0rd!' -AsPlainText -Force)
-        Write-Host "[+] WKST01, WKST02, WKST03 and WEBSERVER01 computer accounts added to CSA.local"
+        New-ADComputer -Name "host" -AccountPassword (ConvertTo-SecureString 'ws1Passw0rd!' -AsPlainText -Force)
+        Write-Host "[+] WKST01, WKST02, WKST03 and host computer accounts added to CSA.local"
 
         #Creating Organizational Units
         Write-Host "[i] Adding Organizational Units to domain"

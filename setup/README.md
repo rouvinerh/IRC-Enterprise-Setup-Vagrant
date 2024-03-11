@@ -104,7 +104,7 @@ The DC is a Windows Server 2022 Standard machine (Box: `gusztavvargadr/windows-s
 9. Set up DC
 
 ### Windows Host (`192.168.111.151`)
-The Windows Host is a Windows Server 2022 Standard machine (Box: `gusztavvargadr/windows-server`).
+The Windows Host is a Windows 10 Standard machine (Box: `gusztavvargadr/windows-10`).
 1. Add static route to route all traffic to `111.0.10.0/24` (external subnet) to `192.168.111.5` (router)
 2. Add firewall rule 
 3. Add audit policies
@@ -113,7 +113,7 @@ The Windows Host is a Windows Server 2022 Standard machine (Box: `gusztavvargadr
 6. Download, install and configure sysmon
 7. Download, install and configure Winlogbeat
 8. Start Winlogbeat service
-9. Wait for DC to be set up and then join AD as `WEBSERVER01`
+9. Wait for DC to be set up and then join AD as `host`
 
 # FileBeat Configuration 
 
