@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
       v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
       v.customize ['modifyvm', :id, '--draganddrop', 'bidirectional']
       v.memory = 1024
-      v.cpus = 1
+      v.cpus = 2
       v.gui = true
     end
   end
@@ -44,7 +44,7 @@ Vagrant.configure("2") do |config|
       v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
       v.customize ['modifyvm', :id, '--draganddrop', 'bidirectional']
       v.memory = 2048
-      v.cpus = 1
+      v.cpus = 2
       v.gui = true
     end
   end
@@ -106,7 +106,7 @@ Vagrant.configure("2") do |config|
       v.name = "kali"
       v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
       v.customize ['modifyvm', :id, '--draganddrop', 'bidirectional']
-      v.memory = 6192
+      v.memory = 8192
       v.cpus = 2
       v.gui = true
     end
@@ -129,13 +129,13 @@ Vagrant.configure("2") do |config|
 #      v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
 #      v.customize ['modifyvm', :id, '--draganddrop', 'bidirectional']
 #      v.memory = 2048
-#      v.cpus = 1
+#      v.cpus = 2
 #      v.gui = true
 #    end
 #  end 
 #
 #  config.vm.define "host" do |host|
-#    host.vm.box = "gusztavvargadr/windows-server"
+#    host.vm.box = "gusztavvargadr/windows-10"
 #    host.vm.hostname= "host"
 #    host.vm.communicator = "winssh"
 #    # network 
